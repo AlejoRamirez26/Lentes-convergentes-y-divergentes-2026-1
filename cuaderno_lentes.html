@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="author" content="Oscar Alejandro Ramírez Espinosa, Jeny Maritza Mora Cardona">
+<meta name="copyright" content="© 2026 Oscar Alejandro Ramírez Espinosa y Jeny Maritza Mora Cardona. Todos los derechos reservados.">
+<meta name="description" content="Cuaderno Digital Interactivo: Lentes Convergentes y Divergentes — Óptica Geométrica, Ecuación de Lentes, Simulaciones, Ingeniería Industrial 2026.">
+<meta name="keywords" content="lentes convergentes, lentes divergentes, óptica geométrica, ecuación de lentes, distancia focal, ingeniería industrial">
+<title>Lentes Convergentes y Divergentes — Cuaderno Digital · 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}]});"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+/* ══ RESET ══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ══ VARIABLES ══ */
+:root{
+  --bg:#0a0e1a;--bg2:#04060f;
+  --paper:#faf8f3;--paper2:#f0ece0;--paper3:#eaf0f8;
+  --ink:#1a1e2e;--inkm:#3a4460;--inkl:#6a78a0;
+  --ac:#1a3a8a;--ac2:#c06810;--ac3:#1a7a50;
+  --danger:#a02018;--gold:#b08820;
+  --spine:linear-gradient(to right,#806020,#e0c878,#a07828,#e0c878,#806020);
+  --flip:.8s;
+  --lh:36px;
+  --fd:'Playfair Display',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+  --fh:'Kalam',cursive;
+  --fm:'JetBrains Mono',monospace;
+}
+body.dm{
+  --paper:#141828;--paper2:#0e1220;--paper3:#0e1828;
+  --ink:#d8dcee;--inkm:#8090c0;--inkl:#4a5880;
+  --bg:#040608;--bg2:#020304;
+}
+html,body{width:100%;height:100vh;overflow:hidden;font-family:var(--fb);background:var(--bg) radial-gradient(ellipse at 30% 20%,var(--bg),var(--bg2));color:var(--ink)}
+h1,h2,h3,h4{font-family:var(--fd)}
+
+/* ══ SPLASH ══ */
+#splash{position:fixed;inset:0;z-index:9000;background:linear-gradient(160deg,#04060f 0%,#08102a 50%,#020408 100%);display:flex;align-items:center;justify-content:center;transition:opacity .9s,visibility .9s}
+#splash.gone{opacity:0;visibility:hidden;pointer-events:none}
+.sc{position:relative;width:min(560px,90vw);padding:42px 38px 34px;border:1.5px solid rgba(176,136,32,.5);border-radius:4px;text-align:center;animation:cIn 1s cubic-bezier(.22,1,.36,1) both;overflow:hidden}
+.sc::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(26,58,138,.2),transparent 70%);pointer-events:none}
+@keyframes cIn{from{opacity:0;transform:translateY(28px) scale(.94)}to{opacity:1;transform:none}}
+.slogo{width:74px;height:74px;border-radius:50%;background:conic-gradient(var(--ac) 0deg 120deg,var(--ac2) 120deg 240deg,var(--ac3) 240deg 360deg);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto 14px;box-shadow:0 0 0 6px rgba(255,255,255,.05),0 8px 28px rgba(26,58,138,.5);animation:spin 22s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.st{font-family:var(--fd);font-weight:900;font-size:2rem;color:var(--gold);line-height:1.2;margin-bottom:9px;text-shadow:0 2px 22px rgba(176,136,32,.45)}
+.ss{color:#7888c0;font-size:.91rem;line-height:1.65;margin-bottom:16px}
+.sa{font-family:var(--fd);font-style:italic;color:#b0b8d8;font-size:.98rem;margin-bottom:5px}
+.sy{color:#2a3050;font-size:.79rem;margin-bottom:26px}
+#btnO{background:var(--ac);color:#fff;border:none;padding:13px 42px;font-family:var(--fd);font-weight:700;font-size:1rem;letter-spacing:.5px;border-radius:4px;cursor:pointer;box-shadow:0 4px 22px rgba(26,58,138,.55);transition:all .25s}
+#btnO:hover{background:#2248aa;transform:translateY(-2px);box-shadow:0 8px 30px rgba(26,58,138,.65)}
+.scp{color:#1a2040;font-size:.69rem;margin-top:20px;line-height:1.7}
+
+/* ══ TOOLBAR ══ */
+#tb{position:fixed;inset:0 0 auto 0;height:44px;z-index:500;background:rgba(2,4,14,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(26,58,138,.35);display:flex;align-items:center;gap:4px;padding:0 12px;flex-wrap:nowrap;overflow-x:auto}
+#tb::-webkit-scrollbar{height:3px}
+.tbb{font-family:var(--fd);color:var(--gold);font-weight:700;font-size:.88rem;white-space:nowrap;margin-right:5px;flex-shrink:0}
+.tbs{width:1px;height:22px;background:rgba(255,255,255,.1);margin:0 3px;flex-shrink:0}
+.tbx{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#8898d0;padding:4px 10px;border-radius:20px;cursor:pointer;font-size:.72rem;font-family:var(--fb);display:flex;align-items:center;gap:3px;transition:all .18s;white-space:nowrap;flex-shrink:0}
+.tbx:hover{background:rgba(26,58,138,.28);border-color:var(--ac);color:#fff}
+.tbx.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tbx:disabled{opacity:.35;cursor:not-allowed}
+.tbgap{flex:1}
+#pgi{color:#2a3460;font-size:.72rem;white-space:nowrap;font-family:var(--fm)}
+#pw{position:fixed;top:44px;left:0;right:0;height:3px;z-index:499;background:rgba(255,255,255,.04)}
+#pb{height:100%;background:linear-gradient(to right,var(--ac),var(--ac2));transition:width .4s;width:0%}
+
+/* ══ BOOK ══ */
+#main{position:fixed;inset:0;top:47px;display:flex;align-items:center;justify-content:center;padding:12px 18px 64px}
+.nw{position:relative;width:min(95vw,1440px);height:min(85vh,840px)}
+.nb{width:100%;height:100%;display:flex;position:relative;filter:drop-shadow(0 22px 60px rgba(0,0,0,.8));transform-style:preserve-3d}
+
+/* ══ SPINE ══ */
+.spine{position:absolute;left:50%;top:0;bottom:0;width:48px;transform:translateX(-50%);background:var(--spine);z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;padding:16px 0;box-shadow:inset 0 0 12px rgba(0,0,0,.3),0 0 10px rgba(0,0,0,.5)}
+.ring{width:50px;height:11px;border-radius:6px;background:linear-gradient(to bottom,#bbb,#555,#222,#666,#bbb);box-shadow:0 2px 5px rgba(0,0,0,.65),inset 0 1px 2px rgba(255,255,255,.15)}
+.slbl{writing-mode:vertical-rl;font-family:var(--fd);font-weight:700;font-size:.57rem;color:#503808;letter-spacing:2.5px;text-transform:uppercase;user-select:none}
+
+/* ══ PAGES ══ */
+.pa{flex:1;height:100%;position:relative;transform-style:preserve-3d;perspective:2600px}
+.page{width:50%;height:100%;position:absolute;top:0;padding:32px 46px 56px;overflow-y:auto;overflow-x:hidden;background:var(--paper);backface-visibility:hidden;scrollbar-width:thin;scrollbar-color:rgba(26,58,138,.3) transparent}
+.page::-webkit-scrollbar{width:4px}
+.page::-webkit-scrollbar-thumb{background:rgba(26,58,138,.3);border-radius:2px}
+.pL{left:0;transform-origin:right center;opacity:0;z-index:1;border-right:1px solid rgba(0,0,0,.07);box-shadow:inset -8px 0 22px rgba(0,0,0,.05),-2px 0 8px rgba(0,0,0,.2)}
+.pR{left:50%;transform-origin:left center;opacity:0;z-index:1;border-left:1px solid rgba(0,0,0,.07);box-shadow:inset 8px 0 22px rgba(0,0,0,.05),2px 0 8px rgba(0,0,0,.2)}
+.pL.on,.pR.on{opacity:1;z-index:5}
+
+/* ══ PAPEL RAYADO — FIX CLAVE ══
+   Se usa background-position-y para que la línea caiga DEBAJO del texto,
+   no encima. El line-height del texto (1.75 × 0.91rem ≈ 25.7px) no coincide
+   con el paso de 36px de la línea, así que usamos "plain" en los contenedores
+   con mucho texto y "lined" solo donde el texto cabe en una línea por renglón. */
+.lined{
+  background-image:
+    repeating-linear-gradient(
+      transparent 0px,
+      transparent calc(var(--lh) - 1px),
+      rgba(26,58,138,.16) calc(var(--lh) - 1px),
+      rgba(26,58,138,.16) var(--lh)
+    );
+  background-size:100% var(--lh);
+  background-attachment:local;
+}
+/* Margen rojo lateral */
+.lined.pL::after,.pL.lined::after{content:'';position:absolute;right:43px;top:0;bottom:0;width:2px;background:rgba(180,50,50,.32);pointer-events:none}
+.lined.pR::after,.pR.lined::after{content:'';position:absolute;left:43px;top:0;bottom:0;width:2px;background:rgba(180,50,50,.32);pointer-events:none}
+
+/* Todos los párrafos en páginas rayadas usan padding-top para empujar
+   el texto ENTRE renglones, no encima de ellos */
+.lined p,.lined li,.lined h2,.lined h3,.lined h4{
+  line-height:var(--lh);
+  margin-bottom:0;
+  padding-top:2px;
+}
+.lined ul,.lined ol{padding-left:1.4rem;margin-bottom:0}
+.lined li{margin-bottom:0}
+/* Elementos que NO deben heredar el line-height fijo */
+.lined .fbox,.lined .note,.lined .warn,.lined .tip,
+.lined table,.lined .dash,.lined .ir{
+  line-height:1.6;
+}
+.lined .fbox *,.lined .note *,.lined .warn *,.lined .tip *,
+.lined table *,.lined .dash *,.lined .ir *{
+  line-height:1.6;
+}
+
+.graph{background-image:linear-gradient(rgba(26,58,138,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(26,58,138,.13) 1px,transparent 1px),linear-gradient(rgba(26,58,138,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(26,58,138,.05) 1px,transparent 1px);background-size:50px 50px,50px 50px,10px 10px,10px 10px}
+
+/* Marca de agua */
+.page::before{content:'Ramírez Espinosa · Mora Cardona';position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%) rotate(-28deg);font-family:var(--fd);font-size:1rem;color:rgba(26,58,138,.035);white-space:nowrap;pointer-events:none;z-index:0;user-select:none;letter-spacing:2px}
+
+/* Números de página */
+.pgn{position:absolute;bottom:18px;font-family:var(--fb);font-size:.77rem;color:var(--inkl);font-style:italic}
+.pL .pgn{left:24px}.pR .pgn{right:24px}
+.pgf{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:.6rem;color:rgba(26,58,138,.3);white-space:nowrap;font-family:var(--fb)}
+
+/* ══ FLIP ══ */
+@keyframes fNO{0%{transform:rotateY(0deg);opacity:1;z-index:10}49%{transform:rotateY(-91deg);opacity:1;z-index:10}50%{transform:rotateY(-91deg);opacity:0;z-index:1}100%{transform:rotateY(-180deg);opacity:0;z-index:1}}
+@keyframes fNI{0%{transform:rotateY(180deg);opacity:0;z-index:1}49%{transform:rotateY(91deg);opacity:0;z-index:1}50%{transform:rotateY(91deg);opacity:1;z-index:10}100%{transform:rotateY(0deg);opacity:1;z-index:10}}
+@keyframes fPO{0%{transform:rotateY(0deg);opacity:1;z-index:10}49%{transform:rotateY(91deg);opacity:1;z-index:10}50%{transform:rotateY(91deg);opacity:0;z-index:1}100%{transform:rotateY(180deg);opacity:0;z-index:1}}
+@keyframes fPI{0%{transform:rotateY(-180deg);opacity:0;z-index:1}49%{transform:rotateY(-91deg);opacity:0;z-index:1}50%{transform:rotateY(-91deg);opacity:1;z-index:10}100%{transform:rotateY(0deg);opacity:1;z-index:10}}
+.aNO{animation:fNO var(--flip) cubic-bezier(.4,0,.2,1) forwards}
+.aNI{animation:fNI var(--flip) cubic-bezier(.4,0,.2,1) forwards}
+.aPO{animation:fPO var(--flip) cubic-bezier(.4,0,.2,1) forwards}
+.aPI{animation:fPI var(--flip) cubic-bezier(.4,0,.2,1) forwards}
+
+/* ══ NAV ══ */
+.nb-btn{position:absolute;bottom:-52px;background:linear-gradient(135deg,#080c1e,#04060e);color:var(--gold);border:1px solid rgba(176,136,32,.45);padding:9px 24px;border-radius:4px;cursor:pointer;font-family:var(--fb);font-weight:700;font-size:.82rem;transition:all .22s;z-index:100;box-shadow:0 4px 15px rgba(0,0,0,.5)}
+.nb-btn:hover:not(:disabled){border-color:var(--gold);transform:translateY(-2px);background:#0a101e;box-shadow:0 6px 20px rgba(0,0,0,.6)}
+.nb-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#nprev{left:0}#nnext{right:0}#nidx{left:50%;transform:translateX(-50%);padding:9px 16px}
+
+/* ══ TIPOGRAFÍA BASE (páginas NO rayadas) ══ */
+p,li{font-size:.91rem;line-height:1.75;text-align:justify;margin-bottom:.6rem}
+ul,ol{padding-left:1.35rem}li{margin-bottom:3px}
+h2{font-size:1.2rem;margin:14px 0 7px;color:var(--ac);border-bottom:2px solid var(--ac);padding-bottom:3px}
+h3{font-size:.97rem;margin:11px 0 5px;color:var(--ac2)}
+h4{font-size:.91rem;margin:8px 0 4px;color:var(--inkm)}
+.ptit{font-family:var(--fh);font-size:2.1rem;color:var(--ink);text-align:center;margin:12px 0 5px;line-height:1.2}
+.psub{font-size:.86rem;color:var(--inkm);text-align:center;margin-bottom:7px}
+.paut{font-family:var(--fd);font-style:italic;text-align:center;color:var(--inkm);font-size:.89rem;margin-bottom:9px}
+.hl{background:rgba(176,136,32,.22);padding:1px 4px;border-radius:3px}
+.h2{background:rgba(26,58,138,.15);padding:1px 4px;border-radius:3px}
+.h3{background:rgba(26,122,80,.15);padding:1px 4px;border-radius:3px}
+
+/* ══ CAJAS ══ */
+.fbox{background:var(--paper2);border-left:4px solid var(--ac);border-radius:0 5px 5px 0;padding:10px 14px;margin:9px 0;font-size:1.07rem;text-align:center;box-shadow:0 2px 7px rgba(0,0,0,.05);line-height:1.5}
+.note{background:rgba(176,136,32,.1);border:1px solid rgba(176,136,32,.4);border-radius:5px;padding:9px 12px;margin:9px 0;font-size:.84rem;line-height:1.6}
+.note strong{color:var(--ac2)}
+.warn{background:rgba(160,32,24,.08);border:1px solid rgba(160,32,24,.32);border-radius:5px;padding:9px 12px;margin:9px 0;font-size:.84rem;line-height:1.6}
+.warn strong{color:var(--danger)}
+.tip{background:rgba(26,58,138,.08);border:1px solid rgba(26,58,138,.32);border-radius:5px;padding:9px 12px;margin:9px 0;font-size:.84rem;line-height:1.6}
+.tip strong{color:var(--ac)}
+table{width:100%;border-collapse:collapse;margin:9px 0;font-size:.83rem;line-height:1.5}
+th{background:var(--ac);color:#fff;padding:7px 9px;font-family:var(--fb);font-weight:600}
+td{border-bottom:1px solid rgba(0,0,0,.08);padding:5px 8px}
+tr:nth-child(even) td{background:rgba(0,0,0,.025)}
+.illus{width:100%;display:block;margin:9px auto;border-radius:6px}
+hr.d{border:none;border-top:1px dashed rgba(0,0,0,.13);margin:11px 0}
+
+/* ══ ÍNDICE ══ */
+.ir{display:flex;align-items:center;gap:7px;padding:6px 9px;margin-bottom:4px;border-radius:4px;cursor:pointer;border-left:3px solid transparent;transition:all .17s;line-height:1.4}
+.ir:hover{background:rgba(26,58,138,.1);border-left-color:var(--ac)}
+.in{font-family:var(--fm);font-size:.73rem;color:var(--inkl);min-width:24px}
+.it{font-size:.87rem;font-weight:600;flex:1;line-height:1.4}
+.id{flex:1;border-bottom:1px dotted rgba(0,0,0,.17);margin:0 7px}
+.ip{font-family:var(--fm);font-size:.73rem;color:var(--inkl)}
+
+/* ══ DASHBOARD ══ */
+.dash{background:rgba(255,255,255,.88);border:1.5px solid #c0c8d8;border-radius:7px;padding:14px;margin:9px 0;box-shadow:0 5px 18px rgba(0,0,0,.06);line-height:1.5}
+body.dm .dash{background:rgba(10,14,30,.9);border-color:#202848}
+.tl{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px}
+.sb{flex:1;min-width:60px;background:var(--paper2);padding:7px 9px;border-radius:5px;text-align:center;border-top:3px solid var(--ac)}
+.sv{font-size:1.05rem;font-weight:700;font-family:var(--fm);color:var(--ink)}
+.sl{font-size:.62rem;color:var(--inkl);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.ct{margin-bottom:10px}
+.ct label{display:flex;justify-content:space-between;font-family:var(--fb);font-weight:600;font-size:.79rem;margin-bottom:3px;color:var(--ink);line-height:1.4}
+input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
+.hbr{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.hb{flex:1;min-width:52px;padding:5px 4px;background:var(--ac);color:#fff;border:none;border-radius:3px;cursor:pointer;font-weight:700;font-size:.76rem;transition:all .17s;white-space:nowrap;line-height:1.3}
+.hb:hover,.hb.sel{background:#0a2468;box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
+.hb.ac2{background:var(--ac2)}.hb.ac2:hover,.hb.ac2.sel{background:#905010}
+.hb.ac3{background:var(--ac3)}.hb.ac3:hover,.hb.ac3.sel{background:#106040}
+.cw{width:100%;height:220px;position:relative;margin-bottom:11px;background:rgba(255,255,255,.8);border-radius:5px;padding:7px;border:1px solid #c8d0e0}
+body.dm .cw{background:rgba(8,12,28,.85);border-color:#182038}
+canvas.scv{width:100%;display:block;background:#fff;border-radius:7px;border:1px solid #c0c8d8;margin-top:9px}
+body.dm canvas.scv{background:#08102a;border-color:#182038}
+
+/* ══ QUIZ ══ */
+.qb{background:rgba(0,0,0,.03);border-radius:5px;padding:10px 11px;margin-bottom:8px;line-height:1.5}
+.qb p{font-weight:700;margin-bottom:6px;font-size:.85rem;line-height:1.5}
+.qb label{display:flex;align-items:center;gap:6px;cursor:pointer;margin-bottom:3px;font-size:.84rem;line-height:1.5}
+.qr{margin-top:4px;font-size:.77rem;font-weight:700}
+.qbtn{width:100%;margin-top:9px;padding:8px;background:var(--ac);color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:700;font-size:.82rem}
+
+/* ══ CHATBOT ══ */
+#chat{position:fixed;bottom:74px;right:16px;z-index:600;display:flex;flex-direction:column;align-items:flex-end}
+.cfab{width:52px;height:52px;border-radius:50%;background:var(--ac);color:#fff;border:2px solid rgba(255,255,255,.3);font-size:1.4rem;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4);transition:transform .3s cubic-bezier(.175,.885,.32,1.275)}
+.cfab:hover{transform:scale(1.1)}
+.cp{width:310px;height:415px;background:#fff;border-radius:10px;box-shadow:0 12px 38px rgba(0,0,0,.35);display:none;flex-direction:column;margin-bottom:10px;border:1px solid #ddd;overflow:hidden}
+.cp.open{display:flex}
+.ch2{background:var(--ink);color:#fff;padding:11px 12px;display:flex;justify-content:space-between;align-items:center;font-size:.87rem}
+.cb{flex:1;padding:10px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;background:#f5f7ff;font-size:.83rem}
+.msg{padding:7px 11px;border-radius:13px;max-width:84%;line-height:1.45}
+.mai{background:var(--ac);color:#fff;align-self:flex-start;border-bottom-left-radius:2px}
+.mu{background:#e0e4f0;color:#222;align-self:flex-end;border-bottom-right-radius:2px}
+.ci{display:flex;padding:7px;border-top:1px solid #ddd;gap:5px;background:#fff}
+.ci input{flex:1;padding:6px 10px;border:1px solid #c0c8e0;border-radius:18px;font-size:.82rem;outline:none}
+.ci button{background:var(--ac);color:#fff;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:.9rem}
+
+/* ══ SEARCH ══ */
+#so{position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.65);backdrop-filter:blur(5px);display:none;align-items:flex-start;justify-content:center;padding-top:80px}
+#so.open{display:flex}
+.sb2{background:#fff;border-radius:8px;padding:17px;width:min(490px,90vw);box-shadow:0 20px 55px rgba(0,0,0,.5)}
+.sb2 input{width:100%;padding:9px 12px;border:2px solid var(--ac);border-radius:5px;font-size:.92rem;outline:none}
+#sr{margin-top:9px;max-height:290px;overflow-y:auto}
+.si{padding:8px 10px;border-radius:4px;cursor:pointer;border-left:3px solid transparent;margin-bottom:3px;font-size:.85rem;line-height:1.4}
+.si:hover{background:rgba(26,58,138,.1);border-left-color:var(--ac)}
+.sip{font-size:.7rem;color:#888;margin-top:1px}
+
+/* ══ NOTAS ══ */
+#np{position:fixed;right:0;top:47px;bottom:0;width:252px;background:#f5f7ff;border-left:1px solid rgba(26,58,138,.35);transform:translateX(100%);transition:transform .3s;z-index:400;display:flex;flex-direction:column;padding:13px}
+#np.open{transform:translateX(0)}
+#np h4{font-family:var(--fd);margin-bottom:7px;font-size:.93rem}
+#ntx{flex:1;width:100%;resize:none;border:1px solid #c0c8e0;border-radius:4px;padding:8px;font-family:var(--fh);font-size:.92rem;line-height:1.6;background:#fff;outline:none}
+
+/* ══ TIMER ══ */
+#tw{position:fixed;bottom:74px;left:16px;z-index:400;background:rgba(2,4,14,.92);border:1px solid var(--gold);border-radius:5px;padding:7px 12px;font-family:var(--fm);color:var(--gold);font-size:.8rem;display:none}
+#tw.open{display:flex;align-items:center;gap:7px}
+
+/* ══ COVER ══ */
+.covL{background:linear-gradient(158deg,#04060f,#08102a,#020408) !important}
+.covR{background:linear-gradient(205deg,#060814,#080c20) !important}
+
+/* ══ LENTE CANVAS ══ */
+canvas.lensCV{width:100%;height:320px;display:block;border-radius:8px;border:1.5px solid #c0c8d8;background:#f8faff;cursor:crosshair}
+body.dm canvas.lensCV{background:#080c20;border-color:#182038}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:720px){.nw{width:99vw;height:74vh}.page{padding:16px 20px 48px}.pL{display:none}.pR{width:100%;left:0}.spine{display:none}p,li{font-size:.83rem}h2{font-size:1.01rem}}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+<div class="sc">
+<svg viewBox="0 0 500 56" style="width:100%;height:52px;margin-bottom:4px;overflow:visible">
+  <path d="M0 28 Q55 8 110 28 T220 28 T330 28 T440 28 T500 28" fill="none" stroke="rgba(26,58,138,.9)" stroke-width="2.5">
+    <animate attributeName="d" values="M0 28 Q55 8 110 28 T220 28 T330 28 T440 28 T500 28;M0 28 Q55 48 110 28 T220 28 T330 28 T440 28 T500 28;M0 28 Q55 8 110 28 T220 28 T330 28 T440 28 T500 28" dur="2.8s" repeatCount="indefinite"/>
+  </path>
+  <path d="M0 28 Q55 48 110 28 T220 28 T330 28 T440 28 T500 28" fill="none" stroke="rgba(176,136,32,.55)" stroke-width="1.9">
+    <animate attributeName="d" values="M0 28 Q55 48 110 28 T220 28 T330 28 T440 28 T500 28;M0 28 Q55 8 110 28 T220 28 T330 28 T440 28 T500 28;M0 28 Q55 48 110 28 T220 28 T330 28 T440 28 T500 28" dur="2s" repeatCount="indefinite"/>
+  </path>
+</svg>
+<div class="slogo">&#128269;</div>
+<div class="st">Lentes Convergentes<br>y Divergentes</div>
+<div class="ss">&#211;ptica Geom&#233;trica &#183; Formaci&#243;n de Im&#225;genes &#183; Ecuaci&#243;n de Lentes<br>Dioptr&#237;as &#183; Aplicaciones en Ingenier&#237;a Industrial</div>
+<div class="sa">Oscar Alejandro Ram&#237;rez Espinosa<br>Jeny Maritza Mora Cardona</div>
+<div class="sy">Cuaderno Digital Interactivo &#183; 2026</div>
+<button id="btnO" onclick="openBook()">&#128218; Abrir Cuaderno</button>
+<div class="scp">&#169; 2026 Oscar Alejandro Ram&#237;rez Espinosa y Jeny Maritza Mora Cardona.<br>Todos los derechos reservados.</div>
+</div>
+</div>
+
+<!-- TOOLBAR -->
+<div id="tb">
+  <span class="tbb">&#128269; Lentes &#211;pticas</span>
+  <div class="tbs"></div>
+  <button class="tbx" id="tp" onclick="flip(-1)" disabled>&#9668; Anterior</button>
+  <button class="tbx" onclick="gIdx()">&#128203; &#205;ndice</button>
+  <button class="tbx" id="tn" onclick="flip(1)">Siguiente &#9658;</button>
+  <div class="tbs"></div>
+  <button class="tbx" onclick="tSrch()">&#128269; Buscar</button>
+  <button class="tbx" onclick="tNotes()">&#128221; Notas</button>
+  <button class="tbx" onclick="tTimer()">&#9200; Tiempo</button>
+  <button class="tbx" onclick="document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()">&#9974; Pantalla</button>
+  <div class="tbs"></div>
+  <button class="tbx" id="tdm" onclick="tDM()">&#127769; Oscuro</button>
+  <button class="tbx" onclick="window.print()">&#128424; Imprimir</button>
+  <button class="tbx" onclick="doShot()">&#128247; Captura</button>
+  <div class="tbgap"></div>
+  <span id="pgi">Portada</span>
+</div>
+<div id="pw"><div id="pb"></div></div>
+
+<!-- BOOK -->
+<div id="main"><div class="nw"><div class="nb" id="nbc">
+<div class="spine" id="spn"><span class="slbl">Lentes &#211;pticas &#183; 2026</span></div>
+<div class="pa">
+
+<!-- S0 -->
+<div class="page pL covL on" id="s0L" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+  <svg viewBox="0 0 300 320" width="220" style="margin-bottom:12px;">
+    <!-- Convergente -->
+    <ellipse cx="90" cy="100" rx="18" ry="50" fill="rgba(26,58,138,.15)" stroke="rgba(26,58,138,.7)" stroke-width="2"/>
+    <line x1="30" y1="100" x2="150" y2="100" stroke="rgba(26,58,138,.3)" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="30" y1="80" x2="90" y2="80" stroke="rgba(26,58,138,.8)" stroke-width="1.5"/>
+    <line x1="90" y1="80" x2="130" y2="115" stroke="rgba(26,58,138,.8)" stroke-width="1.5"/>
+    <line x1="30" y1="100" x2="90" y2="100" stroke="rgba(26,58,138,.8)" stroke-width="1.5"/>
+    <line x1="90" y1="100" x2="130" y2="115" stroke="rgba(26,58,138,.8)" stroke-width="1.5"/>
+    <line x1="30" y1="120" x2="90" y2="120" stroke="rgba(26,58,138,.8)" stroke-width="1.5"/>
+    <line x1="90" y1="120" x2="130" y2="115" stroke="rgba(26,58,138,.8)" stroke-width="1.5"/>
+    <circle cx="130" cy="115" r="4" fill="rgba(26,58,138,.9)"><animate attributeName="r" values="4;6;4" dur="1.8s" repeatCount="indefinite"/></circle>
+    <text x="90" y="162" text-anchor="middle" font-size="10" font-family="DM Sans,sans-serif" fill="rgba(26,58,138,.7)">Convergente f > 0</text>
+    <!-- Divergente -->
+    <ellipse cx="210" cy="100" rx="18" ry="50" fill="rgba(192,104,16,.12)" stroke="rgba(192,104,16,.65)" stroke-width="2"/>
+    <line x1="155" y1="100" x2="265" y2="100" stroke="rgba(192,104,16,.3)" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="155" y1="80" x2="210" y2="80" stroke="rgba(192,104,16,.8)" stroke-width="1.5"/>
+    <line x1="210" y1="80" x2="265" y2="65" stroke="rgba(192,104,16,.8)" stroke-width="1.5"/>
+    <line x1="155" y1="100" x2="265" y2="100" stroke="rgba(192,104,16,.55)" stroke-width="1"/>
+    <line x1="155" y1="120" x2="210" y2="120" stroke="rgba(192,104,16,.8)" stroke-width="1.5"/>
+    <line x1="210" y1="120" x2="265" y2="135" stroke="rgba(192,104,16,.8)" stroke-width="1.5"/>
+    <line x1="176" y1="73" x2="155" y2="65" stroke="rgba(192,104,16,.4)" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="176" y1="127" x2="155" y2="135" stroke="rgba(192,104,16,.4)" stroke-width="1" stroke-dasharray="3,3"/>
+    <circle cx="162" cy="100" r="4" fill="rgba(192,104,16,.7)"/>
+    <text x="210" y="162" text-anchor="middle" font-size="10" font-family="DM Sans,sans-serif" fill="rgba(192,104,16,.7)">Divergente f &lt; 0</text>
+    <!-- Fórmulas -->
+    <text x="150" y="220" text-anchor="middle" font-size="11" font-weight="700" font-family="DM Sans,sans-serif" fill="rgba(255,255,255,.55)">Ecuación de Gauss</text>
+    <text x="150" y="240" text-anchor="middle" font-size="12" font-family="DM Sans,sans-serif" fill="rgba(26,58,138,.8)">1/f = 1/do + 1/di</text>
+    <text x="150" y="270" text-anchor="middle" font-size="10" font-family="DM Sans,sans-serif" fill="rgba(176,136,32,.6)">m = -di / do</text>
+    <text x="150" y="300" text-anchor="middle" font-size="10" font-family="DM Sans,sans-serif" fill="rgba(26,122,80,.55)">P (D) = 1/f (m)</text>
+  </svg>
+  <div style="font-family:'Playfair Display',serif;color:var(--gold);font-size:1.8rem;font-weight:900;text-align:center;line-height:1.2;">Lentes Convergentes<br>y Divergentes</div>
+  <div style="color:#2a3880;font-size:.78rem;text-align:center;margin:9px 0 14px;line-height:1.5;">&#211;ptica Geom&#233;trica &#183; Ecuaci&#243;n de Lentes<br><span style="color:#1a2040;">Ingenier&#237;a Industrial &#183; 2026</span></div>
+  <div class="pgn" style="color:rgba(176,136,32,.4);">i</div>
+</div>
+
+<div class="page pR covR on" id="s0R" style="display:flex;flex-direction:column;justify-content:center;">
+  <div style="border:1.5px solid rgba(176,136,32,.45);border-radius:4px;padding:22px;margin:16px;text-align:center;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ac);margin-bottom:13px;">Cr&#233;ditos</div>
+    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.97rem;color:#6878a8;margin-bottom:4px;">Oscar Alejandro Ram&#237;rez Espinosa</div>
+    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.97rem;color:#6878a8;margin-bottom:16px;">Jeny Maritza Mora Cardona</div>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,.06);margin-bottom:12px;">
+    <p style="font-size:.79rem;color:#4a5880;text-align:center;line-height:1.7;">Cuaderno digital interactivo dedicado al estudio de las <strong style="color:#6878a8;">Lentes Convergentes y Divergentes</strong> en &#211;ptica Geom&#233;trica para Ingenier&#237;a Industrial.<br><br>Incluye teor&#237;a rigurosa, construcciones gr&#225;ficas, simulaci&#243;n interactiva de rayos con canvas en tiempo real, calculadora de im&#225;genes, aplicaciones industriales y autoevaluaci&#243;n.</p>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,.06);margin:12px 0;">
+    <div style="font-size:.68rem;color:#1a2040;line-height:1.8;">&#169; 2026 Oscar Alejandro Ram&#237;rez Espinosa<br>y Jeny Maritza Mora Cardona.<br>Todos los derechos reservados.</div>
+  </div>
+  <div class="pgn" style="color:rgba(176,136,32,.4);">ii</div>
+</div>
+
+<!-- S1 -->
+<div class="page pL lined" id="s1L">
+  <h2 style="margin-top:0;">&#205;ndice de Contenidos</h2>
+  <div class="ir" onclick="gSpread(2)"><span class="in">01</span><span class="it">Naturaleza de la Luz y &#211;ptica Geom&#233;trica</span><span class="id"></span><span class="ip">1</span></div>
+  <div class="ir" onclick="gSpread(2)"><span class="in">02</span><span class="it">Tipos de Lentes y sus Propiedades</span><span class="id"></span><span class="ip">2</span></div>
+  <div class="ir" onclick="gSpread(3)"><span class="in">03</span><span class="it">Lente Convergente — Construcci&#243;n de Im&#225;genes</span><span class="id"></span><span class="ip">3</span></div>
+  <div class="ir" onclick="gSpread(3)"><span class="in">04</span><span class="it">Lente Divergente — Construcci&#243;n de Im&#225;genes</span><span class="id"></span><span class="ip">4</span></div>
+  <div class="ir" onclick="gSpread(4)"><span class="in">05</span><span class="it">Simulaci&#243;n Interactiva de Rayos — Convergente</span><span class="id"></span><span class="ip">5</span></div>
+  <div class="ir" onclick="gSpread(4)"><span class="in">06</span><span class="it">Simulaci&#243;n Interactiva de Rayos — Divergente</span><span class="id"></span><span class="ip">6</span></div>
+  <div class="ir" onclick="gSpread(5)"><span class="in">07</span><span class="it">Ecuaci&#243;n de Gauss y Magnificaci&#243;n</span><span class="id"></span><span class="ip">7</span></div>
+  <div class="ir" onclick="gSpread(5)"><span class="in">08</span><span class="it">Calculadora &#211;ptica Interactiva</span><span class="id"></span><span class="ip">8</span></div>
+  <div class="ir" onclick="gSpread(6)"><span class="in">09</span><span class="it">Combinaci&#243;n de Lentes y Sistemas &#211;pticos</span><span class="id"></span><span class="ip">9</span></div>
+  <div class="ir" onclick="gSpread(6)"><span class="in">10</span><span class="it">Aberraciones &#211;pticas</span><span class="id"></span><span class="ip">10</span></div>
+  <div class="ir" onclick="gSpread(7)"><span class="in">11</span><span class="it">Dioptras y Potencia de la Lente</span><span class="id"></span><span class="ip">11</span></div>
+  <div class="ir" onclick="gSpread(7)"><span class="in">12</span><span class="it">Aplicaciones en Ingenier&#237;a Industrial</span><span class="id"></span><span class="ip">12</span></div>
+  <div class="ir" onclick="gSpread(8)"><span class="in">13</span><span class="it">Autoevaluaci&#243;n</span><span class="id"></span><span class="ip">13</span></div>
+  <div class="ir" onclick="gSpread(8)"><span class="in">14</span><span class="it">Glosario y Referencias Bibliogr&#225;ficas</span><span class="id"></span><span class="ip">14</span></div>
+  <div class="pgn">iii</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<div class="page pR" id="s1R">
+  <div class="ptit">Lentes Convergentes y Divergentes</div>
+  <div class="paut">Oscar Alejandro Ram&#237;rez Espinosa &#183; Jeny Maritza Mora Cardona</div>
+  <div class="psub">&#211;ptica Geom&#233;trica &#183; Ecuaci&#243;n de Gauss &#183; Ingenier&#237;a Industrial &#183; 2026</div>
+  <hr class="d">
+  <svg class="illus" viewBox="0 0 440 155" style="height:145px;">
+    <text x="220" y="13" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="11" fill="#3a4460">Comparaci&#243;n: Lente Convergente vs. Divergente</text>
+    <!-- CONVERGENTE -->
+    <ellipse cx="110" cy="82" rx="14" ry="44" fill="rgba(26,58,138,.12)" stroke="rgba(26,58,138,.7)" stroke-width="2"/>
+    <line x1="50" y1="82" x2="170" y2="82" stroke="rgba(0,0,0,.15)" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="50" y1="64" x2="110" y2="64" stroke="rgba(26,58,138,.8)" stroke-width="1.6"/>
+    <line x1="110" y1="64" x2="152" y2="100" stroke="rgba(26,58,138,.8)" stroke-width="1.6"/>
+    <line x1="50" y1="82" x2="152" y2="100" stroke="rgba(26,58,138,.6)" stroke-width="1.4"/>
+    <line x1="50" y1="100" x2="110" y2="100" stroke="rgba(26,58,138,.8)" stroke-width="1.6"/>
+    <line x1="110" y1="100" x2="152" y2="100" stroke="rgba(26,58,138,.8)" stroke-width="1.6"/>
+    <circle cx="152" cy="100" r="4" fill="rgba(26,58,138,.9)"/>
+    <text x="110" y="140" text-anchor="middle" font-size="9" fill="rgba(26,58,138,.85)" font-family="DM Sans,sans-serif">Convergente — Imagen real</text>
+    <!-- DIVERGENTE -->
+    <ellipse cx="330" cy="82" rx="14" ry="44" fill="rgba(192,104,16,.1)" stroke="rgba(192,104,16,.65)" stroke-width="2"/>
+    <line x1="270" y1="82" x2="400" y2="82" stroke="rgba(0,0,0,.15)" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="270" y1="64" x2="330" y2="64" stroke="rgba(192,104,16,.8)" stroke-width="1.6"/>
+    <line x1="330" y1="64" x2="395" y2="50" stroke="rgba(192,104,16,.8)" stroke-width="1.6"/>
+    <line x1="270" y1="82" x2="395" y2="82" stroke="rgba(192,104,16,.4)" stroke-width="1"/>
+    <line x1="270" y1="100" x2="330" y2="100" stroke="rgba(192,104,16,.8)" stroke-width="1.6"/>
+    <line x1="330" y1="100" x2="395" y2="114" stroke="rgba(192,104,16,.8)" stroke-width="1.6"/>
+    <line x1="300" y1="57" x2="270" y2="50" stroke="rgba(192,104,16,.35)" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="300" y1="107" x2="270" y2="114" stroke="rgba(192,104,16,.35)" stroke-width="1" stroke-dasharray="3,3"/>
+    <circle cx="284" cy="82" r="4" fill="rgba(192,104,16,.75)"/>
+    <text x="330" y="140" text-anchor="middle" font-size="9" fill="rgba(192,104,16,.85)" font-family="DM Sans,sans-serif">Divergente — Imagen virtual</text>
+  </svg>
+  <div class="note">
+    <strong>&#127945; Objetivo:</strong> Comprender la formaci&#243;n de im&#225;genes por lentes delgadas, aplicar la ecuaci&#243;n de Gauss y la magnificaci&#243;n, y analizar sistemas &#243;pticos compuestos con aplicaciones en ingenier&#237;a industrial.
+  </div>
+  <div class="tip">
+    <strong>&#128506; Navegar:</strong> Usa &#9664; &#9654; o las teclas de flecha. P&#225;ginas izquierdas: teor&#237;a. Derechas: simulaciones y c&#225;lculos. El chatbot responde dudas espec&#237;ficas.
+  </div>
+  <div class="pgn">iv</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<!-- S2 -->
+<div class="page pL lined" id="s2L">
+  <h2>1. Naturaleza de la Luz y &#211;ptica Geom&#233;trica</h2>
+  <p>La <span class="hl"><strong>&#211;ptica Geom&#233;trica</strong></span> estudia la propagaci&#243;n de la luz mediante <em>rayos rectos</em>, v&#225;lida cuando los objetos y aperturas son mucho mayores que la longitud de onda (&lambda; &#8776; 400&#8211;700 nm).</p>
+  <p>Sus leyes fundamentales son:</p>
+  <ul>
+    <li><strong>Propagaci&#243;n rectil&#237;nea:</strong> En medios homog&#233;neos, la luz viaja en l&#237;nea recta.</li>
+    <li><strong>Reflexi&#243;n:</strong> &#952;<sub>i</sub> = &#952;<sub>r</sub> (&#225;ngulos respecto a la normal).</li>
+    <li><strong>Refracci&#243;n (Snell):</strong> \(n_1\sin\theta_1 = n_2\sin\theta_2\)</li>
+  </ul>
+  <div class="fbox">\[ n = \frac{c}{v} = \frac{\text{velocidad en el vacío}}{\text{velocidad en el medio}} \]</div>
+  <h3>1.1 &#205;ndice de Refracci&#243;n de Materiales Comunes</h3>
+  <table>
+    <thead><tr><th>Material</th><th>n</th><th>Aplicaci&#243;n</th></tr></thead>
+    <tbody>
+      <tr><td>Aire</td><td>1.000</td><td>Referencia</td></tr>
+      <tr><td>Agua</td><td>1.333</td><td>Inmers. de objetivos</td></tr>
+      <tr><td>Vidrio crown</td><td>1.520</td><td>Lentes &#243;pticas est&#225;ndar</td></tr>
+      <tr><td>Vidrio flint</td><td>1.620</td><td>Dobletes acrom&#225;ticos</td></tr>
+      <tr><td>Cuarzo (SiO&#8322;)</td><td>1.458</td><td>UV, fibra &#243;ptica</td></tr>
+      <tr><td>Diamante</td><td>2.417</td><td>Gemas, lentes especiales</td></tr>
+    </tbody>
+  </table>
+  <div class="note">
+    <strong>Aprox. lente delgada:</strong> Se asume que el espesor de la lente es despreciable comparado con las distancias objeto e imagen. Esta aproximaci&#243;n es v&#225;lida para lentes con \(t \ll f\).
+  </div>
+  <div class="pgn">1</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<div class="page pR lined" id="s2R">
+  <h2>2. Tipos de Lentes y sus Propiedades</h2>
+  <p>Una <span class="hl"><strong>lente</strong></span> es un elemento refractante delimitado por dos superficies (generalmente esf&#233;ricas o planas) que redirige los rayos de luz para formar im&#225;genes.</p>
+  <h3>2.1 Lentes Convergentes (Positivas, f > 0)</h3>
+  <p>M&#225;s gruesas en el centro que en los bordes. Convergen los rayos paralelos en el <span class="h3">foco real</span> F&#8217; situado al otro lado de la lente.</p>
+  <p>Subtipos: biconvexa, plano&#8211;convexa, menisco convergente.</p>
+  <h3>2.2 Lentes Divergentes (Negativas, f &lt; 0)</h3>
+  <p>M&#225;s delgadas en el centro que en los bordes. Divergen los rayos paralelos; al prolongarlos hacia atr&#225;s se encuentra el <span class="h2">foco virtual</span> F&#8217; en el mismo lado que el objeto.</p>
+  <p>Subtipos: biconcava, plano&#8211;c&#243;ncava, menisco divergente.</p>
+  <svg class="illus" viewBox="0 0 420 120" style="height:108px;background:var(--paper3);border-radius:6px;">
+    <text x="210" y="14" text-anchor="middle" font-size="10" font-weight="700" font-family="DM Sans,sans-serif" fill="#3a4460">Tipos de Lentes</text>
+    <!-- biconvexa -->
+    <path d="M50 60 Q65 30 80 60 Q65 90 50 60" fill="rgba(26,58,138,.15)" stroke="rgba(26,58,138,.7)" stroke-width="1.8"/>
+    <text x="65" y="105" text-anchor="middle" font-size="8" fill="#1a3a8a" font-family="DM Sans">Biconvexa</text>
+    <!-- plano-convexa -->
+    <line x1="110" y1="30" x2="110" y2="90" stroke="rgba(26,58,138,.7)" stroke-width="1.8"/>
+    <path d="M110 30 Q130 60 110 90" fill="rgba(26,58,138,.12)" stroke="rgba(26,58,138,.7)" stroke-width="1.8"/>
+    <text x="120" y="105" text-anchor="middle" font-size="8" fill="#1a3a8a" font-family="DM Sans">Plano-convexa</text>
+    <!-- menisco conv -->
+    <path d="M165 30 Q178 60 165 90" fill="none" stroke="rgba(26,58,138,.7)" stroke-width="1.8"/>
+    <path d="M162 33 Q172 60 162 87" fill="rgba(26,58,138,.1)" stroke="rgba(26,58,138,.5)" stroke-width="1.5"/>
+    <text x="170" y="105" text-anchor="middle" font-size="8" fill="#1a3a8a" font-family="DM Sans">Menisco+</text>
+    <!-- biconcava -->
+    <path d="M220 30 Q238 60 220 90 Q206 60 220 30" fill="rgba(192,104,16,.1)" stroke="rgba(192,104,16,.65)" stroke-width="1.8"/>
+    <text x="222" y="105" text-anchor="middle" font-size="8" fill="#c06810" font-family="DM Sans">Bic&#243;ncava</text>
+    <!-- plano-concava -->
+    <line x1="275" y1="30" x2="275" y2="90" stroke="rgba(192,104,16,.65)" stroke-width="1.8"/>
+    <path d="M275 30 Q258 60 275 90" fill="rgba(192,104,16,.1)" stroke="rgba(192,104,16,.65)" stroke-width="1.8"/>
+    <text x="268" y="105" text-anchor="middle" font-size="8" fill="#c06810" font-family="DM Sans">Plano-c&#243;ncava</text>
+    <!-- menisco div -->
+    <path d="M320 32 Q332 60 320 88" fill="none" stroke="rgba(192,104,16,.65)" stroke-width="1.8"/>
+    <path d="M325 30 Q340 60 325 90" fill="rgba(192,104,16,.08)" stroke="rgba(192,104,16,.5)" stroke-width="1.5"/>
+    <text x="328" y="105" text-anchor="middle" font-size="8" fill="#c06810" font-family="DM Sans">Menisco&#8722;</text>
+    <text x="130" y="22" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(26,58,138,.75)" font-family="DM Sans">&#8592; CONVERGENTES &#8212;</text>
+    <text x="295" y="22" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(192,104,16,.75)" font-family="DM Sans">&#8212; DIVERGENTES &#8594;</text>
+  </svg>
+  <table>
+    <thead><tr><th>Par&#225;metro</th><th>Convergente</th><th>Divergente</th></tr></thead>
+    <tbody>
+      <tr><td>Signo de f</td><td>f &gt; 0</td><td>f &lt; 0</td></tr>
+      <tr><td>Foco objeto F</td><td>Real (lado objeto)</td><td>Virtual (lado imagen)</td></tr>
+      <tr><td>Foco imagen F&#8217;</td><td>Real (lado imagen)</td><td>Virtual (lado objeto)</td></tr>
+      <tr><td>Potencia P</td><td>P &gt; 0</td><td>P &lt; 0</td></tr>
+    </tbody>
+  </table>
+  <div class="pgn">2</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<!-- S3 -->
+<div class="page pL lined" id="s3L">
+  <h2>3. Lente Convergente &#8212; Construcci&#243;n de Im&#225;genes</h2>
+  <p>Para localizar la imagen se trazan <strong>tres rayos principales</strong> desde el extremo superior del objeto:</p>
+  <ul>
+    <li><span class="h2"><strong>Rayo 1:</strong></span> Paralelo al eje &#8594; refractado pasa por F&#8217; (foco imagen).</li>
+    <li><span class="hl"><strong>Rayo 2:</strong></span> Pasa por el centro &#243;ptico C &#8594; no se desv&#237;a.</li>
+    <li><span class="h3"><strong>Rayo 3:</strong></span> Pasa por F (foco objeto) &#8594; refractado sale paralelo al eje.</li>
+  </ul>
+  <h3>Casos seg&#250;n la posici&#243;n del objeto (d&#8320;)</h3>
+  <table>
+    <thead><tr><th>Posici&#243;n del objeto</th><th>Imagen</th><th>Caracter&#237;sticas</th></tr></thead>
+    <tbody>
+      <tr><td>d&#8320; &gt; 2f</td><td>Real, invertida</td><td>Reducida al otro lado</td></tr>
+      <tr><td>d&#8320; = 2f</td><td>Real, invertida</td><td>Igual tama&#241;o</td></tr>
+      <tr><td>f &lt; d&#8320; &lt; 2f</td><td>Real, invertida</td><td>Ampliada al otro lado</td></tr>
+      <tr><td>d&#8320; = f</td><td>En el infinito</td><td>No se forma imagen</td></tr>
+      <tr><td>d&#8320; &lt; f</td><td>Virtual, derecha</td><td>Ampliada, mismo lado</td></tr>
+    </tbody>
+  </table>
+  <div class="fbox">\[ \frac{1}{f} = \frac{1}{d_o} + \frac{1}{d_i}, \quad m = \frac{h_i}{h_o} = -\frac{d_i}{d_o} \]</div>
+  <div class="note">
+    <strong>Convenio de signos:</strong> d&#8320; &gt; 0 siempre (objeto real). d&#8320; &gt; 0 imagen real (lado contrario al objeto); d&#8320; &lt; 0 imagen virtual (mismo lado que el objeto). f &gt; 0 para lentes convergentes.
+  </div>
+  <div class="pgn">3</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<div class="page pR lined" id="s3R">
+  <h2>4. Lente Divergente &#8212; Construcci&#243;n de Im&#225;genes</h2>
+  <p>Para la lente divergente (f &lt; 0) se aplican los mismos tres rayos, pero con los focos virtuales:</p>
+  <ul>
+    <li><span class="h2"><strong>Rayo 1:</strong></span> Paralelo al eje &#8594; refractado <em>diverge</em> como si viniera de F&#8217; virtual.</li>
+    <li><span class="hl"><strong>Rayo 2:</strong></span> Pasa por el centro &#243;ptico &#8594; no se desv&#237;a.</li>
+    <li><span class="h3"><strong>Rayo 3:</strong></span> Apunta hacia F&#8217; virtual &#8594; refractado sale paralelo al eje.</li>
+  </ul>
+  <div class="warn">
+    <strong>&#9888; Siempre:</strong> La lente divergente <em>siempre</em> produce im&#225;genes virtuales, derechas y reducidas, independientemente de la posici&#243;n del objeto.
+  </div>
+  <table>
+    <thead><tr><th>Posici&#243;n objeto</th><th>Imagen</th><th>Caracter&#237;sticas</th></tr></thead>
+    <tbody>
+      <tr><td>Cualquier d&#8320;</td><td>Virtual, derecha</td><td>Reducida, mismo lado que el objeto</td></tr>
+    </tbody>
+  </table>
+  <h3>4.1 Ecuaci&#243;n para Lente Divergente</h3>
+  <p>Se usa la misma ecuaci&#243;n de Gauss, pero con f &lt; 0:</p>
+  <div class="fbox">\[ \frac{1}{d_i} = \frac{1}{f} - \frac{1}{d_o} \quad (f < 0) \]</div>
+  <p>El resultado siempre da d&#8321; &lt; 0, confirmando que la imagen es virtual.</p>
+  <h3>4.2 Magnificaci&#243;n Lateral</h3>
+  <div class="fbox">\[ |m| = \left|\frac{d_i}{d_o}\right| < 1 \quad \text{(siempre reducida)} \]</div>
+  <div class="tip">
+    <strong>&#128270; Aplicaci&#243;n:</strong> Las lentes divergentes se usan en lentes de contacto y gafas para miop&#237;a (ojo muy convergente), en mirillas de puertas y c&#225;maras de gran angular, y para corregir aberraciones en sistemas &#243;pticos complejos.
+  </div>
+  <div class="pgn">4</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<!-- S4 -->
+<div class="page pL graph" id="s4L">
+  <h2>5. Simulaci&#243;n &#8212; Lente Convergente</h2>
+  <p style="font-size:.82rem;color:var(--inkm);">Arrastra los sliders para mover el objeto. Los tres rayos principales se dibujan en tiempo real. Haz clic en el canvas para mover el objeto.</p>
+  <canvas class="lensCV" id="cvConv" style="height:290px;"></canvas>
+  <div class="dash" style="padding:11px;">
+    <div class="tl">
+      <div class="sb"><div class="sv" id="vcDo">200</div><div class="sl">d&#8320; (px)</div></div>
+      <div class="sb"><div class="sv" id="vcDi">—</div><div class="sl">d&#7522; (px)</div></div>
+      <div class="sb"><div class="sv" id="vcM">—</div><div class="sl">m</div></div>
+      <div class="sb"><div class="sv" id="vcTipo">—</div><div class="sl">Imagen</div></div>
+    </div>
+    <div class="ct">
+      <label>Distancia focal f (px) <span id="lcF">120</span></label>
+      <input type="range" id="scF" min="40" max="220" step="5" value="120" oninput="updConv()">
+    </div>
+    <div class="ct">
+      <label>Distancia objeto d&#8320; (px) <span id="lcDo">200</span></label>
+      <input type="range" id="scDo" min="10" max="380" step="5" value="200" oninput="updConv()">
+    </div>
+    <div class="ct">
+      <label>Altura objeto h&#8320; (px) <span id="lcH">60</span></label>
+      <input type="range" id="scH" min="10" max="100" step="5" value="60" oninput="updConv()">
+    </div>
+    <div class="hbr">
+      <button class="hb sel" onclick="setConvPreset('normal',this)">d&gt;2f</button>
+      <button class="hb" onclick="setConvPreset('2f',this)">d=2f</button>
+      <button class="hb" onclick="setConvPreset('entre',this)">f&lt;d&lt;2f</button>
+      <button class="hb" onclick="setConvPreset('virtual',this)">d&lt;f</button>
+    </div>
+  </div>
+  <div class="pgn">5</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<div class="page pR graph" id="s4R">
+  <h2>6. Simulaci&#243;n &#8212; Lente Divergente</h2>
+  <p style="font-size:.82rem;color:var(--inkm);">La imagen siempre es virtual, derecha y reducida. Observa c&#243;mo los rayos divergen y c&#243;mo al prolongarlos hacia atr&#225;s convergen en el foco virtual.</p>
+  <canvas class="lensCV" id="cvDiv" style="height:290px;"></canvas>
+  <div class="dash" style="padding:11px;">
+    <div class="tl">
+      <div class="sb"><div class="sv" id="vdDo">200</div><div class="sl">d&#8320; (px)</div></div>
+      <div class="sb"><div class="sv" id="vdDi">—</div><div class="sl">d&#7522; (px)</div></div>
+      <div class="sb"><div class="sv" id="vdM">—</div><div class="sl">m</div></div>
+      <div class="sb"><div class="sv" id="vdTipo">Virtual</div><div class="sl">Imagen</div></div>
+    </div>
+    <div class="ct">
+      <label>Distancia focal |f| (px) <span id="ldF">100</span></label>
+      <input type="range" id="sdF" min="30" max="200" step="5" value="100" oninput="updDiv()">
+    </div>
+    <div class="ct">
+      <label>Distancia objeto d&#8320; (px) <span id="ldDo">200</span></label>
+      <input type="range" id="sdDo" min="20" max="380" step="5" value="200" oninput="updDiv()">
+    </div>
+    <div class="ct">
+      <label>Altura objeto h&#8320; (px) <span id="ldH">60</span></label>
+      <input type="range" id="sdH" min="10" max="100" step="5" value="60" oninput="updDiv()">
+    </div>
+    <div class="note" style="margin-top:6px;">
+      <strong>Nota:</strong> Para la lente divergente, f se ingresa como valor positivo y el programa lo trata como negativo: f_real = &minus;|f|.
+    </div>
+  </div>
+  <div class="pgn">6</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<!-- S5 -->
+<div class="page pL lined" id="s5L">
+  <h2>7. Ecuaci&#243;n de Gauss y Magnificaci&#243;n</h2>
+  <p>La <span class="hl"><strong>Ecuaci&#243;n de Gauss para lentes delgadas</strong></span> relaciona la distancia focal \(f\), la distancia al objeto \(d_o\) y la distancia a la imagen \(d_i\):</p>
+  <div class="fbox">\[ \frac{1}{f} = \frac{1}{d_o} + \frac{1}{d_i} \]</div>
+  <h3>7.1 Magnificaci&#243;n Lateral (Transversal)</h3>
+  <div class="fbox">\[ m = \frac{h_i}{h_o} = -\frac{d_i}{d_o} \]</div>
+  <p>Si \(m > 0\): imagen derecha (virtual). Si \(m < 0\): imagen invertida (real). Si \(|m| > 1\): ampliada. Si \(|m| < 1\): reducida.</p>
+  <h3>7.2 F&#243;rmula del Constructor de Lentes (Lensmaker)</h3>
+  <div class="fbox">\[ \frac{1}{f} = (n-1)\left(\frac{1}{R_1} - \frac{1}{R_2}\right) \]</div>
+  <p>donde \(n\) es el &#237;ndice de refracci&#243;n del material y \(R_1, R_2\) son los radios de curvatura de las superficies (positivo si el centro est&#225; a la derecha).</p>
+  <h3>7.3 Potencia &#211;ptica en Dioptras</h3>
+  <div class="fbox">\[ P = \frac{1}{f\,[\text{m}]} \quad \text{(dioptras, D)} \]</div>
+  <table>
+    <thead><tr><th>Tipo</th><th>f (m)</th><th>P (D)</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>Convergente fuerte</td><td>+0.05</td><td>+20 D</td><td>Lupa</td></tr>
+      <tr><td>Convergente d&#233;bil</td><td>+0.50</td><td>+2 D</td><td>Gafas hipermetr&#243;pico</td></tr>
+      <tr><td>Divergente d&#233;bil</td><td>&#8722;1.00</td><td>&#8722;1 D</td><td>Miop&#237;a leve</td></tr>
+      <tr><td>Divergente fuerte</td><td>&#8722;0.17</td><td>&#8722;6 D</td><td>Miop&#237;a severa</td></tr>
+    </tbody>
+  </table>
+  <div class="pgn">7</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<div class="page pR graph" id="s5R">
+  <h2>8. Calculadora &#211;ptica Interactiva</h2>
+  <p style="font-size:.82rem;color:var(--inkm);">Introduce cualquier dos valores y la calculadora obtiene el tercero, m&#225;s la magnificaci&#243;n y la potencia.</p>
+  <div class="dash">
+    <div class="hbr" style="margin-bottom:10px;">
+      <button class="hb sel" onclick="setCalcMode('conv',this)">Convergente (f&gt;0)</button>
+      <button class="hb ac2" onclick="setCalcMode('div',this)">Divergente (f&lt;0)</button>
+    </div>
+    <div class="ct">
+      <label>Distancia focal f (cm) <span id="lCaf">20</span></label>
+      <input type="range" id="sCaf" min="1" max="100" step="1" value="20" oninput="updCalcOpt()">
+    </div>
+    <div class="ct">
+      <label>Distancia objeto d&#8320; (cm) <span id="lCado">40</span></label>
+      <input type="range" id="sCado" min="1" max="200" step="1" value="40" oninput="updCalcOpt()">
+    </div>
+    <div class="tl" style="margin-top:10px;">
+      <div class="sb"><div class="sv" id="caF">20.0</div><div class="sl">f (cm)</div></div>
+      <div class="sb"><div class="sv" id="caDo">40.0</div><div class="sl">d&#8320; (cm)</div></div>
+      <div class="sb"><div class="sv" id="caDi">—</div><div class="sl">d&#7522; (cm)</div></div>
+      <div class="sb"><div class="sv" id="caM">—</div><div class="sl">m</div></div>
+    </div>
+    <div class="tl">
+      <div class="sb"><div class="sv" id="caP">—</div><div class="sl">P (D)</div></div>
+      <div class="sb"><div class="sv" id="caTipo">—</div><div class="sl">Imagen</div></div>
+      <div class="sb"><div class="sv" id="caOri">—</div><div class="sl">Orientaci&#243;n</div></div>
+      <div class="sb"><div class="sv" id="caTam">—</div><div class="sl">Tama&#241;o</div></div>
+    </div>
+    <div id="caInterpret" style="margin-top:8px;padding:8px;background:rgba(26,58,138,.08);border-radius:5px;font-size:.82rem;line-height:1.5;border-left:3px solid var(--ac);"></div>
+  </div>
+  <div class="note" style="margin-top:8px;">
+    <strong>Lensmaker interactivo:</strong> Ingresa los radios de curvatura:
+    <div style="display:flex;gap:8px;margin-top:6px;">
+      <div class="ct" style="flex:1;margin:0;"><label style="font-size:.75rem;">R&#8321; (cm) <span id="lR1">10</span></label><input type="range" id="sR1" min="-100" max="100" step="1" value="10" oninput="updLensmaker()"></div>
+      <div class="ct" style="flex:1;margin:0;"><label style="font-size:.75rem;">R&#8322; (cm) <span id="lR2">-10</span></label><input type="range" id="sR2" min="-100" max="100" step="1" value="-10" oninput="updLensmaker()"></div>
+    </div>
+    <div style="margin-top:5px;font-size:.8rem;">n=1.52 (vidrio crown): f = <strong id="lmF">9.6</strong> cm &nbsp;|&nbsp; P = <strong id="lmP">10.4</strong> D</div>
+  </div>
+  <div class="pgn">8</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<!-- S6 -->
+<div class="page pL lined" id="s6L">
+  <h2>9. Combinaci&#243;n de Lentes y Sistemas &#211;pticos</h2>
+  <p>Cuando dos o m&#225;s lentes se combinan en un sistema &#243;ptico, la imagen de la primera lente act&#250;a como objeto de la segunda. Si las lentes est&#225;n en <strong>contacto</strong> (separaci&#243;n \(d=0\)), sus potencias simplemente se suman:</p>
+  <div class="fbox">\[ P_{total} = P_1 + P_2 + \cdots + P_n \quad \Rightarrow \quad \frac{1}{f_{eq}} = \frac{1}{f_1} + \frac{1}{f_2} \]</div>
+  <p>Para dos lentes separadas una distancia \(d\):</p>
+  <div class="fbox">\[ \frac{1}{f_{eq}} = \frac{1}{f_1} + \frac{1}{f_2} - \frac{d}{f_1 f_2} \]</div>
+  <h3>9.1 Microscopio Compuesto</h3>
+  <p>Dos lentes convergentes: el <strong>objetivo</strong> (f peque&#241;o, forma imagen real ampliada) y el <strong>ocular</strong> (actu&#250;a como lupa sobre esa imagen). La magnificaci&#243;n total:</p>
+  <div class="fbox">\[ M_{total} = m_{obj} \times M_{oc} = -\frac{L}{f_{obj}} \cdot \frac{25}{f_{oc}} \]</div>
+  <p>donde \(L\) es la longitud del tubo y 25 cm es la distancia de visi&#243;n convencional.</p>
+  <h3>9.2 Telescopio Kepleriano</h3>
+  <div class="fbox">\[ M_{tel} = -\frac{f_{obj}}{f_{oc}} \]</div>
+  <h3>9.3 C&#225;mara Fotogr&#225;fica</h3>
+  <p>La lente forma una imagen real e invertida sobre el sensor. La relaci&#243;n \(f/\#\) controla la apertura: \(f/\# = f/D\) donde \(D\) es el di&#225;metro de la apertura.</p>
+  <div class="note">
+    <strong>D&#243;blete acrom&#225;tico:</strong> Se combina una lente de vidrio crown (+) y otra de vidrio flint (&#8722;) para que la focal sea la misma para dos longitudes de onda distintas, eliminando la aberraci&#243;n crom&#225;tica.
+  </div>
+  <div class="pgn">9</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<div class="page pR lined" id="s6R">
+  <h2>10. Aberraciones &#211;pticas</h2>
+  <p>Las <span class="hl"><strong>aberraciones</strong></span> son desviaciones de la imagen ideal debidas a imperfecciones inherentes de las lentes reales.</p>
+  <h3>10.1 Aberraciones Monocrom&#225;ticas (Seidel)</h3>
+  <ul>
+    <li><span class="h2"><strong>Aberraci&#243;n esf&#233;rica:</strong></span> Los rayos perif&#233;ricos se enfocan en un punto distinto que los paraxiales. Produce imagen borrosa en el centro. Se corrige con lentes asf&#233;ricas o diafragmas.</li>
+    <li><span class="hl"><strong>Coma:</strong></span> Objetos fuera del eje dan im&#225;genes en forma de cometa. Grave en teleobjetivos.</li>
+    <li><span class="h3"><strong>Astigmatismo:</strong></span> Rayos en planos perpendiculares se enfocan a distancias distintas. Corregido con lentes cil&#237;ndricas.</li>
+    <li><strong>Curvatura de campo:</strong> El plano imagen ideal es curvo, no plano. Relevante en c&#225;maras.</li>
+    <li><strong>Distorsi&#243;n:</strong> La magnificaci&#243;n var&#237;a con la altura del objeto. Produce im&#225;genes en barril o almohadilla.</li>
+  </ul>
+  <h3>10.2 Aberraci&#243;n Crom&#225;tica</h3>
+  <p>La dispersi&#243;n del vidrio hace que \(n\) var&#237;e con \(\lambda\), por lo que \(f\) es diferente para cada color. Im&#225;genes con halos de color.</p>
+  <div class="fbox">\[ \text{Número de Abbe} = V = \frac{n_d - 1}{n_F - n_C} \]</div>
+  <p>Vidrio con alto n&#250;mero de Abbe (\(V > 50\): crown) tiene poca dispersi&#243;n; con bajo (\(V < 35\): flint) tiene mucha.</p>
+  <div class="tip">
+    <strong>Correcci&#243;n:</strong> El d&#243;blete acrom&#225;tico combina una lente crown positiva y una flint negativa para igualar la focal a dos longitudes de onda (generalmente azul y rojo), reduciendo el halo crom&#225;tico un 90%.
+  </div>
+  <div class="warn">
+    <strong>MTF:</strong> La Funci&#243;n de Transferencia de Modulaci&#243;n cuantifica la calidad de una lente midiendo c&#243;mo reproduce el contraste a diferentes frecuencias espaciales (pares de l&#237;neas/mm).
+  </div>
+  <div class="pgn">10</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<!-- S7 -->
+<div class="page pL lined" id="s7L">
+  <h2>11. Dioptras y Potencia de la Lente</h2>
+  <p>La <span class="hl"><strong>potencia &#243;ptica</strong></span> \(P\) mide la capacidad de una lente para converger o divergir la luz. Se expresa en <em>dioptras</em> (D):</p>
+  <div class="fbox">\[ P = \frac{1}{f\,[\mathrm{m}]} \;\;\mathrm{[D]} = \mathrm{[m^{-1}]} \]</div>
+  <h3>11.1 Ojo Humano y Correcci&#243;n Visual</h3>
+  <p>El ojo humano tiene una potencia total de \(\approx 60\) D (c&#243;rnea: 43 D; cristalino: 20 D). Los defectos visuales se corrigen con lentes:</p>
+  <table>
+    <thead><tr><th>Defecto</th><th>Causa</th><th>Correcci&#243;n</th><th>Potencia</th></tr></thead>
+    <tbody>
+      <tr><td>Miop&#237;a</td><td>Globo ocular largo</td><td>Lente divergente</td><td>P &lt; 0</td></tr>
+      <tr><td>Hipermetropia</td><td>Globo ocular corto</td><td>Lente convergente</td><td>P &gt; 0</td></tr>
+      <tr><td>Astigmatismo</td><td>C&#243;rnea irregular</td><td>Lente cil&#237;ndrica</td><td>Variable</td></tr>
+      <tr><td>Presbicia</td><td>Cristalino r&#237;gido</td><td>Lente convergente</td><td>+1 a +3 D</td></tr>
+    </tbody>
+  </table>
+  <h3>11.2 N&#250;mero F y Profundidad de Campo</h3>
+  <div class="fbox">\[ f/\# = \frac{f}{D_{apertura}}, \quad \text{Profundidad de campo} \propto (f/\#)^2 \]</div>
+  <p>Aperturas grandes (\(f/1.4\)) dan poca profundidad de campo (fondo desenfocado, ideal para retratos). Aperturas peque&#241;as (\(f/16\)) dan mucha (todo en foco, ideal para paisajes).</p>
+  <div class="note">
+    <strong>C&#237;rculo de confusi&#243;n:</strong> Di&#225;metro m&#225;ximo del c&#237;rculo de desenfoque que a&#250;n parece en foco para el ojo humano. T&#237;picamente 0.03 mm para c&#225;maras de formato completo (35 mm).
+  </div>
+  <div class="pgn">11</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<div class="page pR lined" id="s7R">
+  <h2>12. Aplicaciones en Ingenier&#237;a Industrial</h2>
+  <h3>Inspecci&#243;n Visual y Machine Vision</h3>
+  <p>Los sistemas de <strong>visi&#243;n artificial</strong> usan lentes telecéntricas para inspecci&#243;n dimensional sin paralaje. La lente telec&#233;ntrica garantiza que el tama&#241;o de la imagen no cambia con la distancia del objeto, fundamental en metrolog&#237;a &#243;ptica.</p>
+  <h3>L&#225;seres Industriales y Enfoque</h3>
+  <p>Los lentes de enfoque en cortadoras y grabadoras l&#225;ser (CO&#8322;, Nd:YAG, fibra) concentran el haz en un punto m&#237;nimo. El di&#225;metro del spot es \(d_s \approx 2.44\,\lambda\,(f/D)\), controlando la densidad de energ&#237;a y resoluci&#243;n del corte.</p>
+  <h3>Endoscopios y Boroscopios</h3>
+  <p>Usan sistemas de <strong>lentes relay</strong> (tren de lentes convergentes id&#233;nticas) para transportar la imagen a lo largo de tubos r&#237;gidos sin p&#233;rdida de calidad. Cada lente convierte la imagen real en virtual y la siguiente la convierte de vuelta a real.</p>
+  <h3>Proyectores y Displays Industriales</h3>
+  <p>Los HUDs industriales (Head-Up Displays) combinan lentes divergentes y espejos c&#243;ncavos para proyectar im&#225;genes virtuales aparentes a infinito, permitiendo al operador leer datos sin reenfocar la vista.</p>
+  <h3>Sensores de Rango (LiDAR y TOF)</h3>
+  <p>Los sistemas LiDAR industrial usan lentes de colimaci&#243;n para producir haces paralelos de l&#225;ser IR y lentes receptoras para concentrar los fotones reflejados en el detector. La \(f\) del colimador determina la divergencia del haz y el alcance m&#225;ximo.</p>
+  <div class="pgn">12</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<!-- S8 -->
+<div class="page pL lined" id="s8L">
+  <h2>13. Autoevaluaci&#243;n</h2>
+  <div class="qb">
+    <p>1. Una lente convergente de f=20 cm tiene un objeto a 60 cm. La distancia a la imagen es:</p>
+    <label><input type="radio" name="q1" value="a"> a) 60 cm</label>
+    <label><input type="radio" name="q1" value="b"> b) 30 cm</label>
+    <label><input type="radio" name="q1" value="c"> c) 20 cm</label>
+    <label><input type="radio" name="q1" value="d"> d) 15 cm</label>
+    <div class="qr" id="r1"></div>
+  </div>
+  <div class="qb">
+    <p>2. Una lente divergente de f=&#8722;15 cm tiene un objeto a 30 cm. La imagen es:</p>
+    <label><input type="radio" name="q2" value="a"> a) Real, invertida, a 30 cm al otro lado</label>
+    <label><input type="radio" name="q2" value="b"> b) Virtual, derecha, a 10 cm del mismo lado</label>
+    <label><input type="radio" name="q2" value="c"> c) Virtual, derecha, a 30 cm del mismo lado</label>
+    <label><input type="radio" name="q2" value="d"> d) Real, derecha, a 10 cm</label>
+    <div class="qr" id="r2"></div>
+  </div>
+  <div class="qb">
+    <p>3. Una lente biconvexa de vidrio (n=1.5) con R&#8321;=+10 cm y R&#8322;=&#8722;10 cm tiene una potencia de:</p>
+    <label><input type="radio" name="q3" value="a"> a) 5 D</label>
+    <label><input type="radio" name="q3" value="b"> b) 10 D</label>
+    <label><input type="radio" name="q3" value="c"> c) 20 D</label>
+    <label><input type="radio" name="q3" value="d"> d) 15 D</label>
+    <div class="qr" id="r3"></div>
+  </div>
+  <div class="qb">
+    <p>4. Una lente convergente de f=10 cm, objeto a 5 cm. La imagen es:</p>
+    <label><input type="radio" name="q4" value="a"> a) Real, invertida y ampliada</label>
+    <label><input type="radio" name="q4" value="b"> b) Virtual, derecha y ampliada</label>
+    <label><input type="radio" name="q4" value="c"> c) Virtual, invertida y reducida</label>
+    <label><input type="radio" name="q4" value="d"> d) Real, derecha y reducida</label>
+    <div class="qr" id="r4"></div>
+  </div>
+  <div class="qb">
+    <p>5. La aberraci&#243;n crom&#225;tica ocurre porque:</p>
+    <label><input type="radio" name="q5" value="a"> a) El radio de curvatura es muy grande</label>
+    <label><input type="radio" name="q5" value="b"> b) El &#237;ndice de refracci&#243;n var&#237;a con la longitud de onda</label>
+    <label><input type="radio" name="q5" value="c"> c) La lente tiene bordes muy gruesos</label>
+    <label><input type="radio" name="q5" value="d"> d) El objeto est&#225; demasiado cerca del foco</label>
+    <div class="qr" id="r5"></div>
+  </div>
+  <button class="qbtn" onclick="chkQ()">&#10003; Verificar Respuestas</button>
+  <div class="pgn">13</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+<div class="page pR lined" id="s8R">
+  <h2>14. Glosario y Referencias</h2>
+  <h3>Glosario</h3>
+  <table style="font-size:.79rem;">
+    <tr><td><strong>Lente convergente</strong></td><td>Lente de f&gt;0 que concentra rayos paralelos en el foco real</td></tr>
+    <tr><td><strong>Lente divergente</strong></td><td>Lente de f&lt;0 que dispersa rayos; imagen siempre virtual</td></tr>
+    <tr><td><strong>Distancia focal f</strong></td><td>Distancia del centro &#243;ptico al foco; positiva/negativa seg&#250;n tipo</td></tr>
+    <tr><td><strong>Magnificaci&#243;n m</strong></td><td>Raz&#243;n h&#7522;/h&#8320;=&#8722;d&#7522;/d&#8320;; &gt;0 imagen derecha, &lt;0 invertida</td></tr>
+    <tr><td><strong>Dioptra (D)</strong></td><td>Unidad de potencia &#243;ptica = 1/f[m]</td></tr>
+    <tr><td><strong>Imagen real</strong></td><td>Formada por conversi&#243;n real de rayos; proyectable en pantalla</td></tr>
+    <tr><td><strong>Imagen virtual</strong></td><td>Formada por prolongaci&#243;n de rayos; no proyectable</td></tr>
+    <tr><td><strong>Aberraci&#243;n esf&#233;rica</strong></td><td>Rayos perif&#233;ricos se enfocan diferente a los paraxiales</td></tr>
+    <tr><td><strong>N&#250;mero de Abbe V</strong></td><td>Medida de la dispersi&#243;n del vidrio; alto=poca dispers.</td></tr>
+  </table>
+  <hr class="d">
+  <h3>Referencias Bibliogr&#225;ficas</h3>
+  <ol style="font-size:.79rem;line-height:1.85;">
+    <li>Serway, R. A. y Jewett, J. W. (2018). <em>F&#237;sica para Ciencias e Ingenier&#237;a</em> (10a ed.). Cengage Learning. Cap. 36&#8211;37.</li>
+    <li>Hecht, E. (2017). <em>Optics</em> (5a ed.). Pearson Education. Cap. 5&#8211;6.</li>
+    <li>Halliday, D., Resnick, R. y Walker, J. (2021). <em>Fundamentals of Physics</em> (11a ed.). Wiley. Cap. 34.</li>
+    <li>Born, M. y Wolf, E. (2013). <em>Principles of Optics</em> (7a ed.). Cambridge University Press. Cap. 4&#8211;5.</li>
+    <li>Smith, W. J. (2008). <em>Modern Optical Engineering</em> (4a ed.). McGraw-Hill. Cap. 1&#8211;4.</li>
+    <li>Saleh, B. E. A. y Teich, M. C. (2019). <em>Fundamentals of Photonics</em> (3a ed.). Wiley. Cap. 1&#8211;2.</li>
+  </ol>
+  <div style="margin-top:14px;padding:10px;border:1px solid rgba(176,136,32,.42);border-radius:4px;font-size:.69rem;text-align:center;color:var(--inkm);">
+    &#169; 2026 Oscar Alejandro Ram&#237;rez Espinosa y Jeny Maritza Mora Cardona.<br>
+    Todos los derechos reservados. Prohibida la reproducci&#243;n sin autorizaci&#243;n expresa.
+  </div>
+  <div class="pgn">14</div>
+  <div class="pgf">&#169; 2026 Ram&#237;rez Espinosa &#183; Mora Cardona</div>
+</div>
+
+</div><!-- .pa -->
+<button class="nb-btn" id="nprev" onclick="flip(-1)" disabled>&#9668; Anterior</button>
+<button class="nb-btn" id="nidx" onclick="gIdx()">&#128203; &#205;ndice</button>
+<button class="nb-btn" id="nnext" onclick="flip(1)">Siguiente &#9658;</button>
+</div></div></div>
+
+<div id="so"><div class="sb2">
+  <h3 style="margin-bottom:8px;font-family:var(--fd);">Buscar en el Cuaderno</h3>
+  <input type="text" id="sinp" placeholder="Escribe un t&#233;rmino..." oninput="doSrch(this.value)" onkeydown="if(event.key==='Escape')tSrch()">
+  <div id="sr"></div>
+  <button onclick="tSrch()" style="margin-top:8px;background:#eee;border:none;padding:5px 13px;border-radius:4px;cursor:pointer;font-size:.82rem;">Cerrar</button>
+</div></div>
+
+<div id="np">
+  <h4>Notas Personales</h4>
+  <p style="font-size:.72rem;color:#888;margin-bottom:6px;">Guardadas autom&#225;ticamente.</p>
+  <textarea id="ntx" placeholder="Escribe tus notas aqu&#237;..." oninput="saveN()"></textarea>
+  <button onclick="tNotes()" style="margin-top:6px;background:#eee;border:none;padding:5px;border-radius:4px;cursor:pointer;font-size:.79rem;width:100%;">Cerrar</button>
+</div>
+
+<div id="tw">
+  <span id="tdisp">00:00</span>
+  <button onclick="rstT()" style="background:none;border:1px solid var(--gold);color:var(--gold);padding:2px 7px;border-radius:3px;cursor:pointer;font-size:.7rem;">Reset</button>
+</div>
+
+<div id="chat">
+  <div class="cp" id="cpanel">
+    <div class="ch2"><span>Tutor IA &#8212; Lentes &#211;pticas</span><span style="cursor:pointer" onclick="tChat()">&#10006;</span></div>
+    <div class="cb" id="cbody">
+      <div class="msg mai">&#161;Hola! Soy tu tutor de Lentes &#211;pticas. Puedo explicarte la ecuaci&#243;n de Gauss, construcciones de im&#225;genes, aberraciones, sistemas &#243;pticos o aplicaciones industriales. &#191;Qu&#233; quieres explorar?</div>
+    </div>
+    <div class="ci">
+      <input type="text" id="cinp" placeholder="Escribe tu pregunta..." onkeypress="if(event.key==='Enter')sndChat()">
+      <button onclick="sndChat()">&#10148;</button>
+    </div>
+  </div>
+  <div class="cfab" onclick="tChat()">&#128172;</div>
+</div>
+
+<script>
+/* ===================== STATE ===================== */
+const NS=9;let cur=0,flipping=false,dmOn=false;
+let tSec=0,tRun=false,tIv=null;
+let calcMode='conv';
+const SP=[['s0L','s0R'],['s1L','s1R'],['s2L','s2R'],['s3L','s3R'],
+          ['s4L','s4R'],['s5L','s5R'],['s6L','s6R'],['s7L','s7R'],['s8L','s8R']];
+
+/* ===================== NAVIGATION ===================== */
+function openBook(){document.getElementById('splash').classList.add('gone');setTimeout(initAll,300);}
+function flip(dir){
+  if(flipping)return;const nx=cur+dir;if(nx<0||nx>=NS)return;flipping=true;
+  const[cL,cR]=SP[cur].map(id=>document.getElementById(id));
+  const[nL,nR]=SP[nx].map(id=>document.getElementById(id));
+  if(dir>0){cR.classList.add('aNO');nL.classList.add('aNI');}
+  else{cL.classList.add('aPO');nR.classList.add('aPI');}
+  setTimeout(()=>{
+    ['aNO','aNI','aPO','aPI','on'].forEach(c=>{cL.classList.remove(c);cR.classList.remove(c);});
+    nL.classList.remove('aNO','aNI','aPO','aPI');nR.classList.remove('aNO','aNI','aPO','aPI');
+    nL.classList.add('on');nR.classList.add('on');cur=nx;flipping=false;updNav();
+  },830);
+}
+function gSpread(n){if(n===cur||flipping)return;const d=n>cur?1:-1;(function s(){if(cur===n)return;flip(d);setTimeout(s,860);})();}
+function gIdx(){gSpread(1);}
+function updNav(){
+  ['nprev','tp'].forEach(id=>{const e=document.getElementById(id);if(e)e.disabled=cur===0;});
+  ['nnext','tn'].forEach(id=>{const e=document.getElementById(id);if(e)e.disabled=cur===NS-1;});
+  const L=['Portada','&#205;ndice','P&#225;gs 1&#8211;2','P&#225;gs 3&#8211;4','P&#225;gs 5&#8211;6','P&#225;gs 7&#8211;8','P&#225;gs 9&#8211;10','P&#225;gs 11&#8211;12','P&#225;gs 13&#8211;14'];
+  const pi=document.getElementById('pgi');if(pi)pi.innerHTML=L[cur]||'P&#225;g '+(cur*2-1)+'-'+(cur*2);
+  const pb=document.getElementById('pb');if(pb)pb.style.width=((cur/(NS-1))*100)+'%';
+}
+function tDM(){dmOn=!dmOn;document.body.classList.toggle('dm',dmOn);const b=document.getElementById('tdm');if(b){b.innerHTML=dmOn?'&#9728; Claro':'&#127769; Oscuro';b.classList.toggle('on',dmOn);}}
+function doShot(){if(typeof html2canvas==='undefined')return;html2canvas(document.getElementById('nbc'),{scale:1.4}).then(c=>{const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='lentes-opticas.png';a.click();});}
+function buildSpine(){const s=document.getElementById('spn');if(!s)return;for(let i=0;i<14;i++){const r=document.createElement('div');r.className='ring';s.insertBefore(r,s.querySelector('.slbl'));}}
+function tSrch(){const e=document.getElementById('so');e.classList.toggle('open');if(e.classList.contains('open')){const si=document.getElementById('sinp');if(si)si.focus();}}
+function tNotes(){document.getElementById('np').classList.toggle('open');}
+function saveN(){try{localStorage.setItem('lentes-notes',document.getElementById('ntx').value);}catch(e){}}
+function loadN(){try{const n=localStorage.getItem('lentes-notes');if(n)document.getElementById('ntx').value=n;}catch(e){}}
+function tTimer(){const w=document.getElementById('tw');w.classList.toggle('open');if(w.classList.contains('open')&&!tRun)startT();}
+function startT(){tRun=true;tIv=setInterval(()=>{tSec++;const d=document.getElementById('tdisp');if(d)d.textContent=String(Math.floor(tSec/60)).padStart(2,'0')+':'+String(tSec%60).padStart(2,'0');},1000);}
+function rstT(){clearInterval(tIv);tSec=0;tRun=false;const d=document.getElementById('tdisp');if(d)d.textContent='00:00';startT();}
+
+/* ===================== LENS DRAWING ENGINE ===================== */
+function drawLens(cvId,type,fPx,doPx,hoPx){
+  const cv=document.getElementById(cvId);if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const W=cv.offsetWidth||700,H=cv.offsetHeight||290;
+  cv.width=W;cv.height=H;
+  const isConv=(type==='conv');
+  const f=isConv?fPx:-fPx;   /* signed focal length */
+  const do_=doPx;
+  const di=1/(1/f - 1/do_);   /* Gauss: 1/di = 1/f - 1/do */
+  const m=-di/do_;
+  const hi=hoPx*m;
+
+  const cx=W/2, cy=H/2;
+  const scale=1;
+
+  /* Background */
+  ctx.fillStyle=dmOn?'#08102a':'#f8faff';ctx.fillRect(0,0,W,H);
+
+  /* Optical axis */
+  ctx.strokeStyle='rgba(100,120,180,.3)';ctx.lineWidth=1;ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();ctx.setLineDash([]);
+
+  /* Lens */
+  ctx.strokeStyle=isConv?'rgba(26,58,138,.8)':'rgba(192,104,16,.8)';ctx.lineWidth=2.5;
+  const lh=Math.min(H*0.46,130);
+  ctx.beginPath();
+  if(isConv){
+    ctx.moveTo(cx,cy-lh);
+    ctx.quadraticCurveTo(cx+12,cy,cx,cy+lh);
+    ctx.moveTo(cx,cy-lh);
+    ctx.quadraticCurveTo(cx-12,cy,cx,cy+lh);
+  }else{
+    ctx.moveTo(cx,cy-lh);
+    ctx.quadraticCurveTo(cx-10,cy,cx,cy+lh);
+    ctx.moveTo(cx,cy-lh);
+    ctx.quadraticCurveTo(cx+10,cy,cx,cy+lh);
+  }
+  ctx.stroke();
+  /* Arrows on lens */
+  ctx.fillStyle=isConv?'rgba(26,58,138,.8)':'rgba(192,104,16,.8)';
+  [[cx,cy-lh,isConv?1:-1],[cx,cy+lh,isConv?-1:1]].forEach(([x,y,dir])=>{
+    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-6,y+dir*12);ctx.lineTo(x+6,y+dir*12);ctx.closePath();ctx.fill();
+  });
+
+  /* Focal points */
+  const drawFP=(x,label,col)=>{
+    ctx.beginPath();ctx.arc(x,cy,5,0,2*Math.PI);ctx.fillStyle=col;ctx.fill();
+    ctx.fillStyle=col;ctx.font='bold 10px DM Sans,sans-serif';ctx.textAlign='center';
+    ctx.fillText(label,x,cy+18);
+  };
+  const fpColor='rgba(160,32,24,.8)';
+  /* F (object side) */
+  drawFP(cx-f,isConv?'F':'F\'(v)',fpColor);
+  /* F' (image side) */
+  drawFP(cx+f,isConv?'F\'':'F(v)',fpColor);
+
+  /* Object (left of lens, negative x from cx) */
+  const objX=cx-do_;
+  if(objX>10&&objX<cx){
+    ctx.strokeStyle='rgba(30,140,60,.9)';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(objX,cy);ctx.lineTo(objX,cy-hoPx);ctx.stroke();
+    /* arrowhead */
+    ctx.fillStyle='rgba(30,140,60,.9)';
+    ctx.beginPath();ctx.moveTo(objX,cy-hoPx);ctx.lineTo(objX-5,cy-hoPx+10);ctx.lineTo(objX+5,cy-hoPx+10);ctx.closePath();ctx.fill();
+    ctx.fillStyle='rgba(30,140,60,.75)';ctx.font='10px DM Sans,sans-serif';ctx.textAlign='center';
+    ctx.fillText('O',objX,cy+16);
+  }
+
+  /* Image */
+  const imgX=cx+di;
+  const isVirtual=(di<0);
+  const imgColor=isVirtual?'rgba(192,104,16,.85)':'rgba(26,58,138,.85)';
+  if(imgX>5&&imgX<W-5){
+    ctx.strokeStyle=imgColor;ctx.lineWidth=2;
+    ctx.setLineDash(isVirtual?[5,4]:[]);
+    ctx.beginPath();ctx.moveTo(imgX,cy);ctx.lineTo(imgX,cy-hi);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=imgColor;
+    ctx.beginPath();ctx.moveTo(imgX,cy-hi);ctx.lineTo(imgX-5,cy-hi+(hi>0?10:-10));ctx.lineTo(imgX+5,cy-hi+(hi>0?10:-10));ctx.closePath();ctx.fill();
+    ctx.fillStyle=imgColor;ctx.font='10px DM Sans,sans-serif';ctx.textAlign='center';
+    ctx.fillText("I"+(isVirtual?'(v)':''),imgX,cy+16);
+  }
+
+  /* RAY 1: parallel to axis → through F' */
+  ctx.strokeStyle='rgba(220,40,40,.75)';ctx.lineWidth=1.6;
+  ctx.beginPath();
+  if(objX>0){
+    ctx.moveTo(objX,cy-hoPx);ctx.lineTo(cx,cy-hoPx);  /* to lens */
+    if(isConv){
+      /* refracted through F' */
+      if(Math.abs(di)<W*3){
+        const endX=W;const endY=cy-hoPx+(endX-cx)*(cy-hoPx-(cy))/(cx+f-cx);
+        const fy=cy;const slope=(fy-(cy-hoPx))/(cx+f-cx);
+        ctx.lineTo(W,cy-hoPx+slope*(W-cx));
+      }
+    }else{
+      /* diverges as if from F'(virtual) */
+      const vfx=cx+f;/* virtual focus, left side */
+      const slope=(cy-hoPx-cy)/(cx-vfx);
+      ctx.lineTo(W,cy-hoPx+slope*(W-cx));
+    }
+  }
+  ctx.stroke();
+
+  /* RAY 2: through center → straight */
+  ctx.strokeStyle='rgba(40,160,40,.75)';ctx.lineWidth=1.6;
+  if(objX>0){
+    ctx.beginPath();ctx.moveTo(objX,cy-hoPx);
+    const slope2=(cy-hoPx-cy)/(objX-cx);
+    ctx.lineTo(cx,cy-hoPx+slope2*(cx-objX));/* to center */
+    ctx.lineTo(W,cy-hoPx+slope2*(W-objX));
+    ctx.stroke();
+  }
+
+  /* RAY 3: through F → parallel after lens */
+  ctx.strokeStyle='rgba(26,58,200,.65)';ctx.lineWidth=1.6;
+  if(objX>0&&Math.abs(cx-f-objX)>1){
+    const fObjX=cx-f;
+    const slope3=(cy-hoPx-cy)/(objX-fObjX);
+    ctx.beginPath();ctx.moveTo(objX,cy-hoPx);
+    ctx.lineTo(cx,cy-hoPx+slope3*(cx-objX));
+    ctx.lineTo(W,cy-hoPx+slope3*(cx-objX));/* parallel = horizontal */
+    if(!isConv){ctx.lineTo(W,cy-hoPx+slope3*(cx-objX));}
+    ctx.stroke();
+  }
+
+  /* Labels */
+  ctx.fillStyle=dmOn?'rgba(180,200,255,.75)':'rgba(26,58,138,.75)';ctx.font='bold 10px DM Sans,sans-serif';ctx.textAlign='left';
+  const diLabel=isFinite(di)?di.toFixed(1)+'px':'&#8734;';
+  const mLabel=isFinite(m)?m.toFixed(2):'&#8734;';
+  ctx.fillText('do='+do_.toFixed(0)+'  di='+diLabel+'  m='+mLabel,8,16);
+  ctx.fillText(isConv?'Lente Convergente':'Lente Divergente',8,28);
+
+  /* Update info boxes */
+  const pfx=cvId==='cvConv'?'vc':'vd';
+  const setV=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  setV(pfx+'Do',do_.toFixed(0));
+  setV(pfx+'Di',isFinite(di)?di.toFixed(1):'&#8734;');
+  setV(pfx+'M',isFinite(m)?m.toFixed(2):'&#8734;');
+  const tipoTxt=isVirtual?'Virtual':'Real';
+  setV(pfx+'Tipo',tipoTxt+(m>0?' Derecha':' Invertida'));
+}
+
+/* ===================== CONV CONTROLS ===================== */
+function updConv(){
+  const f=parseFloat(document.getElementById('scF').value);
+  const d=parseFloat(document.getElementById('scDo').value);
+  const h=parseFloat(document.getElementById('scH').value);
+  document.getElementById('lcF').textContent=f;
+  document.getElementById('lcDo').textContent=d;
+  document.getElementById('lcH').textContent=h;
+  drawLens('cvConv','conv',f,d,h);
+}
+function setConvPreset(t,el){
+  document.querySelectorAll('#s4L .hb').forEach(b=>b.classList.remove('sel'));
+  if(el)el.classList.add('sel');
+  const f=parseInt(document.getElementById('scF').value)||120;
+  if(t==='normal'){document.getElementById('scDo').value=f*2.5;}
+  else if(t==='2f'){document.getElementById('scDo').value=f*2;}
+  else if(t==='entre'){document.getElementById('scDo').value=Math.round(f*1.5);}
+  else{document.getElementById('scDo').value=Math.round(f*0.6);}
+  updConv();
+}
+
+/* ===================== DIV CONTROLS ===================== */
+function updDiv(){
+  const f=parseFloat(document.getElementById('sdF').value);
+  const d=parseFloat(document.getElementById('sdDo').value);
+  const h=parseFloat(document.getElementById('sdH').value);
+  document.getElementById('ldF').textContent=f;
+  document.getElementById('ldDo').textContent=d;
+  document.getElementById('ldH').textContent=h;
+  drawLens('cvDiv','div',f,d,h);
+}
+
+/* ===================== CALCULATOR ===================== */
+function setCalcMode(m,el){
+  calcMode=m;document.querySelectorAll('#s5R .hb').forEach(b=>b.classList.remove('sel'));
+  if(el)el.classList.add('sel');updCalcOpt();
+}
+function updCalcOpt(){
+  let fCm=parseFloat(document.getElementById('sCaf').value);
+  const doCm=parseFloat(document.getElementById('sCado').value);
+  if(calcMode==='div')fCm=-fCm;
+  document.getElementById('lCaf').textContent=Math.abs(fCm).toFixed(0);
+  document.getElementById('lCado').textContent=doCm.toFixed(0);
+  const di=1/(1/fCm-1/doCm);
+  const m2=-di/doCm;
+  const P=100/fCm;/* f in cm -> P in D = 100/f_cm */
+  const setV=(id,v)=>{const el=document.getElementById(id);if(el)el.innerHTML=v;};
+  setV('caF',(calcMode==='div'?'-':'')+Math.abs(fCm).toFixed(1));
+  setV('caDo',doCm.toFixed(1));
+  setV('caDi',isFinite(di)?di.toFixed(2):'&infin;');
+  setV('caM',isFinite(m2)?m2.toFixed(3):'&infin;');
+  setV('caP',isFinite(P)?P.toFixed(2):'&infin;');
+  const isV=di<0;
+  setV('caTipo',isV?'Virtual':'Real');
+  setV('caOri',m2>0?'Derecha':'Invertida');
+  setV('caTam',Math.abs(m2)>1?'Ampliada':'Reducida');
+  const interp=document.getElementById('caInterpret');
+  if(interp){
+    let txt='';
+    if(!isFinite(di)){txt='El objeto est&#225; en el foco: la imagen se forma en el infinito.';}
+    else if(isV){txt=`Imagen <b>virtual</b>, <b>${m2>0?'derecha':'invertida'}</b>, <b>${Math.abs(m2)>1?'ampliada':'reducida'}</b> (|m|=${Math.abs(m2).toFixed(2)}). Formada al mismo lado que el objeto a d<sub>i</sub>=${Math.abs(di).toFixed(2)} cm.`;}
+    else{txt=`Imagen <b>real</b>, <b>invertida</b>, <b>${Math.abs(m2)>1?'ampliada':'reducida'}</b> (|m|=${Math.abs(m2).toFixed(2)}). Proyectable en pantalla a d<sub>i</sub>=${di.toFixed(2)} cm.`;}
+    interp.innerHTML=txt;
+  }
+}
+function updLensmaker(){
+  const R1=parseFloat(document.getElementById('sR1').value);
+  const R2=parseFloat(document.getElementById('sR2').value);
+  const n=1.52;
+  document.getElementById('lR1').textContent=R1;
+  document.getElementById('lR2').textContent=R2;
+  const f=(R2===0||R1===0)?Infinity:1/((n-1)*(1/R1-1/R2));/* in cm */
+  const P=isFinite(f)?100/f:0;/* D = 100/f_cm */
+  const lmF=document.getElementById('lmF');if(lmF)lmF.textContent=isFinite(f)?f.toFixed(1):'&infin;';
+  const lmP=document.getElementById('lmP');if(lmP)lmP.textContent=isFinite(P)?P.toFixed(1):'0';
+}
+
+/* ===================== CHATBOT ===================== */
+const CR=[
+  "La ecuaci&#243;n de Gauss es 1/f = 1/do + 1/di. Despejando: 1/di = 1/f - 1/do. Para f=20 cm y do=60 cm: 1/di = 1/20 - 1/60 = 3/60 - 1/60 = 2/60 = 1/30, entonces di = 30 cm. Imagen real e invertida.",
+  "Una lente divergente SIEMPRE produce im&#225;genes virtuales, derechas y reducidas, sin importar d&#243;nde est&#233; el objeto. Esto es porque f es negativa, y al aplicar Gauss, di siempre resulta negativa.",
+  "La magnificaci&#243;n m = -di/do. Si m > 0: imagen derecha (virtual). Si m < 0: imagen invertida (real). Si |m| > 1: ampliada. Si |m| < 1: reducida. Por ejemplo, m = -2 significa real, invertida y el doble de grande.",
+  "La f&#243;rmula del constructor de lentes es 1/f = (n-1)(1/R1 - 1/R2). Para vidrio crown (n=1.52) con R1=+10 cm y R2=-10 cm: 1/f = 0.52*(1/10+1/10) = 0.52*0.2 = 0.104, entonces f = 9.6 cm y P = 10.4 D.",
+  "Las aberraciones principales son: esf&#233;rica (rayos perif&#233;ricos vs. paraxiales), coma (objetos fuera del eje), astigmatismo, curvatura de campo, distorsi&#243;n, y crom&#225;tica (n var&#237;a con longitud de onda). Se corrigen con sistemas de m&#250;ltiples lentes.",
+  "Para miop&#237;a se usa lente divergente (f negativa) que aleja la imagen hacia atr&#225;s. Para hipermetropia se usa convergente (f positiva) que acerca la imagen. La potencia de la correcci&#243;n se da en dioptras: P = 1/f[m].",
+  "En un sistema de dos lentes en contacto: Ptotal = P1 + P2. Si est&#225;n separadas una distancia d: 1/feq = 1/f1 + 1/f2 - d/(f1*f2). Para el microscopio: M = -(L/fobj)*(25/foc) donde L es la longitud del tubo.",
+];
+let cIdx=0;
+function tChat(){document.getElementById('cpanel').classList.toggle('open');}
+function sndChat(){
+  const inp=document.getElementById('cinp'),body=document.getElementById('cbody');
+  if(!inp||!inp.value.trim())return;
+  const um=document.createElement('div');um.className='msg mu';um.textContent=inp.value;body.appendChild(um);inp.value='';
+  setTimeout(()=>{
+    const bm=document.createElement('div');bm.className='msg mai';
+    bm.innerHTML=CR[cIdx%CR.length];cIdx++;body.appendChild(bm);body.scrollTop=body.scrollHeight;
+  },650);body.scrollTop=body.scrollHeight;
+}
+
+/* ===================== QUIZ ===================== */
+function chkQ(){
+  /* q1: 1/f=1/20, 1/do=1/60 -> 1/di=1/20-1/60=2/60 -> di=30 (b) */
+  /* q2: 1/di=1/(-15)-1/30=-1/15-1/30=-3/30 -> di=-10 virtual derecha (b) */
+  /* q3: 1/f=(1.5-1)(1/10-1/(-10))=0.5*0.2=0.1 -> f=10cm -> P=10D (b) */
+  /* q4: do<f -> virtual derecha ampliada (b) */
+  /* q5: n var&#237;a con lambda (b) */
+  const ans={q1:'b',q2:'b',q3:'b',q4:'b',q5:'b'};
+  for(const[q,c]of Object.entries(ans)){
+    const sel=document.querySelector(`input[name="${q}"]:checked`);
+    const el=document.getElementById('r'+q[1]);if(!el)continue;
+    if(!sel){el.textContent='&#9888; Selecciona una opci&#243;n.';el.style.color='#c06810';}
+    else if(sel.value===c){el.textContent='&#10003; &#161;Correcto!';el.style.color='#1a6b3a';}
+    else{el.textContent='&#10007; Incorrecto. Respuesta: ('+c.toUpperCase()+').';el.style.color='#a02018';}
+  }
+}
+
+/* ===================== SEARCH ===================== */
+const SIDX=[
+  {t:'&#211;ptica geom&#233;trica propagaci&#243;n rectil&#237;nea',pg:1,sp:2},
+  {t:'&#205;ndice de refracci&#243;n materiales vidrio agua',pg:1,sp:2},
+  {t:'Ley de Snell refracci&#243;n',pg:1,sp:2},
+  {t:'Tipos de lentes convergentes divergentes',pg:2,sp:2},
+  {t:'Biconvexa plano-convexa menisco',pg:2,sp:2},
+  {t:'Construccion de imagenes lente convergente',pg:3,sp:3},
+  {t:'Tres rayos principales construccion grafica',pg:3,sp:3},
+  {t:'Casos posicion objeto imagen real virtual',pg:3,sp:3},
+  {t:'Lente divergente imagen virtual derecha reducida',pg:4,sp:3},
+  {t:'Convenio de signos distancias focales',pg:4,sp:3},
+  {t:'Simulacion interactiva lente convergente canvas',pg:5,sp:4},
+  {t:'Simulacion lente divergente rayos',pg:6,sp:4},
+  {t:'Ecuacion de Gauss formula lentes delgadas',pg:7,sp:5},
+  {t:'Magnificacion lateral transversal m=-di/do',pg:7,sp:5},
+  {t:'Formula constructor lentes lensmaker',pg:7,sp:5},
+  {t:'Potencia optica dioptra P=1/f',pg:7,sp:5},
+  {t:'Calculadora optica interactiva imagen',pg:8,sp:5},
+  {t:'Combinacion de lentes sistemas opticos',pg:9,sp:6},
+  {t:'Microscopio compuesto magnificacion',pg:9,sp:6},
+  {t:'Telescopio Kepleriano formula',pg:9,sp:6},
+  {t:'Aberraciones esfericacomaastigmatismo',pg:10,sp:6},
+  {t:'Aberracion cromatica numero de Abbe',pg:10,sp:6},
+  {t:'Doblete acromatico correccion aberracion',pg:10,sp:6},
+  {t:'Dioptras ojo humano correccion visual',pg:11,sp:7},
+  {t:'Miopia hipermetropia astigmatismo correccion',pg:11,sp:7},
+  {t:'Numero F profundidad de campo',pg:11,sp:7},
+  {t:'Vision artificial machine vision telecentricha',pg:12,sp:7},
+  {t:'Laser industrial enfoque spot corte',pg:12,sp:7},
+  {t:'Endoscopio boroscopio lentes relay',pg:12,sp:7},
+  {t:'LiDAR sensor rango colimacion',pg:12,sp:7},
+  {t:'Autoevaluacion lentes opticas preguntas',pg:13,sp:8},
+  {t:'Glosario terminos optica lentes',pg:14,sp:8},
+  {t:'Referencias bibliograficas optica fisica',pg:14,sp:8},
+];
+function doSrch(q){
+  const res=document.getElementById('sr');if(!q.trim()){res.innerHTML='';return;}
+  const hits=SIDX.filter(e=>e.t.toLowerCase().includes(q.toLowerCase()));
+  if(!hits.length){res.innerHTML='<p style="color:#888;font-size:.82rem;padding:7px;">Sin resultados.</p>';return;}
+  res.innerHTML=hits.slice(0,10).map(h=>`<div class="si" onclick="gSpread(${h.sp});tSrch();">${h.t}<div class="sip">P&#225;gina ${h.pg}</div></div>`).join('');
+}
+
+/* ===================== INIT + LOOP ===================== */
+let simOn=false,animT=0,lastTS=0;
+function mainLoop(ts){
+  if(!lastTS)lastTS=ts;animT+=(ts-lastTS);lastTS=ts;
+  if(cur===4){
+    const f=parseFloat(document.getElementById('scF').value)||120;
+    const d=parseFloat(document.getElementById('scDo').value)||200;
+    const h=parseFloat(document.getElementById('scH').value)||60;
+    drawLens('cvConv','conv',f,d,h);
+    const ff=parseFloat(document.getElementById('sdF').value)||100;
+    const dd=parseFloat(document.getElementById('sdDo').value)||200;
+    const hh=parseFloat(document.getElementById('sdH').value)||60;
+    drawLens('cvDiv','div',ff,dd,hh);
+  }
+  requestAnimationFrame(mainLoop);
+}
+function initAll(){
+  if(simOn)return;simOn=true;
+  updConv();updDiv();updCalcOpt();updLensmaker();
+  requestAnimationFrame(mainLoop);startT();
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  buildSpine();updNav();loadN();
+  document.addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+    if(e.key==='ArrowRight'||e.key==='ArrowDown')flip(1);
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp')flip(-1);
+    if(e.key==='Escape')document.getElementById('so').classList.remove('open');
+  });
+});
+</script>
+</body></html>
